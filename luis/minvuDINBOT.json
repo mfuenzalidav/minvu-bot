@@ -1,0 +1,1013 @@
+{
+  "luis_schema_version": "2.1.0",
+  "versionId": "0.1",
+  "name": "minvuDINBOT",
+  "desc": "",
+  "culture": "es-es",
+  "intents": [
+    {
+      "name": "Ayuda"
+    },
+    {
+      "name": "Cancelar"
+    },
+    {
+      "name": "Despedida"
+    },
+    {
+      "name": "None"
+    },
+    {
+      "name": "RSH.ObtenerGrupoFamiliar"
+    },
+    {
+      "name": "RSH.ObtenerTramoRsh"
+    },
+    {
+      "name": "Saludo"
+    }
+  ],
+  "entities": [],
+  "composites": [],
+  "closedLists": [],
+  "bing_entities": [],
+  "model_features": [],
+  "regex_features": [],
+  "utterances": [
+    {
+      "text": "no",
+      "intent": "Cancelar",
+      "entities": []
+    },
+    {
+      "text": "gracias",
+      "intent": "Despedida",
+      "entities": []
+    },
+    {
+      "text": "hola",
+      "intent": "Saludo",
+      "entities": []
+    },
+    {
+      "text": "adios",
+      "intent": "Despedida",
+      "entities": []
+    },
+    {
+      "text": "buenas noches",
+      "intent": "Despedida",
+      "entities": []
+    },
+    {
+      "text": "hasta mañana",
+      "intent": "Despedida",
+      "entities": []
+    },
+    {
+      "text": "hello",
+      "intent": "Saludo",
+      "entities": []
+    },
+    {
+      "text": "no se que hacer",
+      "intent": "Ayuda",
+      "entities": []
+    },
+    {
+      "text": "necesito ayuda",
+      "intent": "Ayuda",
+      "entities": []
+    },
+    {
+      "text": "buenos dias",
+      "intent": "Saludo",
+      "entities": []
+    },
+    {
+      "text": "buenas tardes",
+      "intent": "Saludo",
+      "entities": []
+    },
+    {
+      "text": "saludos",
+      "intent": "Saludo",
+      "entities": []
+    },
+    {
+      "text": "muchas gracias",
+      "intent": "Despedida",
+      "entities": []
+    },
+    {
+      "text": "hi",
+      "intent": "Saludo",
+      "entities": []
+    },
+    {
+      "text": "cancelar",
+      "intent": "Cancelar",
+      "entities": []
+    },
+    {
+      "text": "chau",
+      "intent": "Despedida",
+      "entities": []
+    },
+    {
+      "text": "buen dia",
+      "intent": "Saludo",
+      "entities": []
+    },
+    {
+      "text": "ayudame",
+      "intent": "Ayuda",
+      "entities": []
+    },
+    {
+      "text": "holi",
+      "intent": "Saludo",
+      "entities": []
+    },
+    {
+      "text": "como estas",
+      "intent": "Saludo",
+      "entities": []
+    },
+    {
+      "text": "hasta luego",
+      "intent": "Despedida",
+      "entities": []
+    },
+    {
+      "text": "chao",
+      "intent": "Despedida",
+      "entities": []
+    },
+    {
+      "text": "ola",
+      "intent": "Saludo",
+      "entities": []
+    },
+    {
+      "text": "¿cómo estás?",
+      "intent": "Saludo",
+      "entities": []
+    },
+    {
+      "text": "oli",
+      "intent": "Saludo",
+      "entities": []
+    },
+    {
+      "text": "bye",
+      "intent": "Despedida",
+      "entities": []
+    },
+    {
+      "text": "hasta la vista",
+      "intent": "Despedida",
+      "entities": []
+    },
+    {
+      "text": "hasta pronto",
+      "intent": "Despedida",
+      "entities": []
+    },
+    {
+      "text": "nos vemos",
+      "intent": "Despedida",
+      "entities": []
+    },
+    {
+      "text": "adiós",
+      "intent": "Despedida",
+      "entities": []
+    },
+    {
+      "text": "no comprendo",
+      "intent": "Ayuda",
+      "entities": []
+    },
+    {
+      "text": "nos vimos",
+      "intent": "Despedida",
+      "entities": []
+    },
+    {
+      "text": "ola k ase",
+      "intent": "Saludo",
+      "entities": []
+    },
+    {
+      "text": "hasta nunca",
+      "intent": "Despedida",
+      "entities": []
+    },
+    {
+      "text": "hasta siempre",
+      "intent": "Despedida",
+      "entities": []
+    },
+    {
+      "text": "me voy",
+      "intent": "Despedida",
+      "entities": []
+    },
+    {
+      "text": "me ayudas",
+      "intent": "Ayuda",
+      "entities": []
+    },
+    {
+      "text": "hasta la proxima",
+      "intent": "Despedida",
+      "entities": []
+    },
+    {
+      "text": "que tenga buen dia",
+      "intent": "Despedida",
+      "entities": []
+    },
+    {
+      "text": "cerrar",
+      "intent": "Cancelar",
+      "entities": []
+    },
+    {
+      "text": "aloha",
+      "intent": "Saludo",
+      "entities": []
+    },
+    {
+      "text": "me tengo que ir",
+      "intent": "Despedida",
+      "entities": []
+    },
+    {
+      "text": "¿qué tal?",
+      "intent": "Saludo",
+      "entities": []
+    },
+    {
+      "text": "holas",
+      "intent": "Saludo",
+      "entities": []
+    },
+    {
+      "text": "hola, como estas ?",
+      "intent": "Saludo",
+      "entities": []
+    },
+    {
+      "text": "adiosito",
+      "intent": "Despedida",
+      "entities": []
+    },
+    {
+      "text": "cuidate",
+      "intent": "Despedida",
+      "entities": []
+    },
+    {
+      "text": "olas",
+      "intent": "Saludo",
+      "entities": []
+    },
+    {
+      "text": "no lo quiero",
+      "intent": "Cancelar",
+      "entities": []
+    },
+    {
+      "text": "te veo luego",
+      "intent": "Despedida",
+      "entities": []
+    },
+    {
+      "text": "hablamos luego",
+      "intent": "Despedida",
+      "entities": []
+    },
+    {
+      "text": "terminar",
+      "intent": "Cancelar",
+      "entities": []
+    },
+    {
+      "text": "nos estamos viendo",
+      "intent": "Despedida",
+      "entities": []
+    },
+    {
+      "text": "como te va?",
+      "intent": "Saludo",
+      "entities": []
+    },
+    {
+      "text": "jelou",
+      "intent": "Saludo",
+      "entities": []
+    },
+    {
+      "text": "chabela",
+      "intent": "Despedida",
+      "entities": []
+    },
+    {
+      "text": "wena",
+      "intent": "Saludo",
+      "entities": []
+    },
+    {
+      "text": "estimado",
+      "intent": "Saludo",
+      "entities": []
+    },
+    {
+      "text": "chao pescao",
+      "intent": "Despedida",
+      "entities": []
+    },
+    {
+      "text": "aloja",
+      "intent": "Saludo",
+      "entities": []
+    },
+    {
+      "text": "todo bien ?",
+      "intent": "Saludo",
+      "entities": []
+    },
+    {
+      "text": "jelow",
+      "intent": "Saludo",
+      "entities": []
+    },
+    {
+      "text": "que tal te va",
+      "intent": "Saludo",
+      "entities": []
+    },
+    {
+      "text": "holap",
+      "intent": "Saludo",
+      "entities": []
+    },
+    {
+      "text": "holiwi",
+      "intent": "Saludo",
+      "entities": []
+    },
+    {
+      "text": "helou",
+      "intent": "Saludo",
+      "entities": []
+    },
+    {
+      "text": "qué tengas un buen día",
+      "intent": "Despedida",
+      "entities": []
+    },
+    {
+      "text": "que talca",
+      "intent": "Saludo",
+      "entities": []
+    },
+    {
+      "text": "chaolin",
+      "intent": "Despedida",
+      "entities": []
+    },
+    {
+      "text": "me explicas",
+      "intent": "Ayuda",
+      "entities": []
+    },
+    {
+      "text": "dime el tramo de esta familia",
+      "intent": "RSH.ObtenerTramoRsh",
+      "entities": []
+    },
+    {
+      "text": "cual es el grupo familiar de este rut",
+      "intent": "RSH.ObtenerGrupoFamiliar",
+      "entities": []
+    },
+    {
+      "text": "cual es el grupo familiar de esta familia",
+      "intent": "RSH.ObtenerGrupoFamiliar",
+      "entities": []
+    },
+    {
+      "text": "dime el grupo de este rut",
+      "intent": "RSH.ObtenerGrupoFamiliar",
+      "entities": []
+    },
+    {
+      "text": "dime el grupo de esta familia",
+      "intent": "RSH.ObtenerGrupoFamiliar",
+      "entities": []
+    },
+    {
+      "text": "a que grupo pertenece este rut",
+      "intent": "RSH.ObtenerGrupoFamiliar",
+      "entities": []
+    },
+    {
+      "text": "cuantas personas son parte de este grupo familiar",
+      "intent": "RSH.ObtenerGrupoFamiliar",
+      "entities": []
+    },
+    {
+      "text": "como has estado ?",
+      "intent": "Saludo",
+      "entities": []
+    },
+    {
+      "text": "me equivoque, mejor cancelar la opcion",
+      "intent": "Cancelar",
+      "entities": []
+    },
+    {
+      "text": "cual es el rsh",
+      "intent": "RSH.ObtenerTramoRsh",
+      "entities": []
+    },
+    {
+      "text": "dime el tramo de esta persona",
+      "intent": "RSH.ObtenerTramoRsh",
+      "entities": []
+    },
+    {
+      "text": "dame el tramo",
+      "intent": "RSH.ObtenerTramoRsh",
+      "entities": []
+    },
+    {
+      "text": "que rsh tiene la señora",
+      "intent": "RSH.ObtenerTramoRsh",
+      "entities": []
+    },
+    {
+      "text": "en que tramo esta la persona",
+      "intent": "RSH.ObtenerTramoRsh",
+      "entities": []
+    },
+    {
+      "text": "cual es el tramo de la familia rut",
+      "intent": "RSH.ObtenerTramoRsh",
+      "entities": []
+    },
+    {
+      "text": "necesito saber el tramo de la persona rut",
+      "intent": "RSH.ObtenerTramoRsh",
+      "entities": []
+    },
+    {
+      "text": "cual es la rsh del rut",
+      "intent": "RSH.ObtenerTramoRsh",
+      "entities": []
+    },
+    {
+      "text": "dame la rsh del rut",
+      "intent": "RSH.ObtenerTramoRsh",
+      "entities": []
+    },
+    {
+      "text": "dime cual es la rsh del rut",
+      "intent": "RSH.ObtenerTramoRsh",
+      "entities": []
+    },
+    {
+      "text": "dame el tramo de",
+      "intent": "RSH.ObtenerTramoRsh",
+      "entities": []
+    },
+    {
+      "text": "dame el grupo de la familia",
+      "intent": "RSH.ObtenerGrupoFamiliar",
+      "entities": []
+    },
+    {
+      "text": "dame el grupo de la familia con rut",
+      "intent": "RSH.ObtenerGrupoFamiliar",
+      "entities": []
+    },
+    {
+      "text": "quienes pertenecen al grupo familiar",
+      "intent": "RSH.ObtenerGrupoFamiliar",
+      "entities": []
+    },
+    {
+      "text": "quienes pertenences al grupo familiar del rut",
+      "intent": "RSH.ObtenerGrupoFamiliar",
+      "entities": []
+    },
+    {
+      "text": "a que grupo pertenece",
+      "intent": "RSH.ObtenerGrupoFamiliar",
+      "entities": []
+    },
+    {
+      "text": "hablame del grupo familiar",
+      "intent": "RSH.ObtenerGrupoFamiliar",
+      "entities": []
+    },
+    {
+      "text": "hablame del grupo familiar del rut",
+      "intent": "RSH.ObtenerGrupoFamiliar",
+      "entities": []
+    },
+    {
+      "text": "manifiestame el grupo familiar",
+      "intent": "RSH.ObtenerGrupoFamiliar",
+      "entities": []
+    },
+    {
+      "text": "manifiestame el grupo familiar del rut",
+      "intent": "RSH.ObtenerGrupoFamiliar",
+      "entities": []
+    },
+    {
+      "text": "declarame el grupo familiar",
+      "intent": "RSH.ObtenerGrupoFamiliar",
+      "entities": []
+    },
+    {
+      "text": "declarame el grupo familiar del rut",
+      "intent": "RSH.ObtenerGrupoFamiliar",
+      "entities": []
+    },
+    {
+      "text": "expresame el grupo familiar",
+      "intent": "RSH.ObtenerGrupoFamiliar",
+      "entities": []
+    },
+    {
+      "text": "expresame el grupo familiar del rut",
+      "intent": "RSH.ObtenerGrupoFamiliar",
+      "entities": []
+    },
+    {
+      "text": "exponeme el grupo familiar",
+      "intent": "RSH.ObtenerGrupoFamiliar",
+      "entities": []
+    },
+    {
+      "text": "exponeme el grupo familiar del rut",
+      "intent": "RSH.ObtenerGrupoFamiliar",
+      "entities": []
+    },
+    {
+      "text": "mencioname el grupo familiar",
+      "intent": "RSH.ObtenerGrupoFamiliar",
+      "entities": []
+    },
+    {
+      "text": "mencioname el grupo familiar del rut",
+      "intent": "RSH.ObtenerGrupoFamiliar",
+      "entities": []
+    },
+    {
+      "text": "nombrame el grupo familiar",
+      "intent": "RSH.ObtenerGrupoFamiliar",
+      "entities": []
+    },
+    {
+      "text": "nombrame el grupo familiar del rut",
+      "intent": "RSH.ObtenerGrupoFamiliar",
+      "entities": []
+    },
+    {
+      "text": "formulame el grupo familiar",
+      "intent": "RSH.ObtenerGrupoFamiliar",
+      "entities": []
+    },
+    {
+      "text": "formulame el grupo familiar del rut",
+      "intent": "RSH.ObtenerGrupoFamiliar",
+      "entities": []
+    },
+    {
+      "text": "anunciame el grupo familiar",
+      "intent": "RSH.ObtenerGrupoFamiliar",
+      "entities": []
+    },
+    {
+      "text": "anunciame el grupo familiar del rut",
+      "intent": "RSH.ObtenerGrupoFamiliar",
+      "entities": []
+    },
+    {
+      "text": "enunciame el grupo familiar",
+      "intent": "RSH.ObtenerGrupoFamiliar",
+      "entities": []
+    },
+    {
+      "text": "enunciame el grupo familiar del rut",
+      "intent": "RSH.ObtenerGrupoFamiliar",
+      "entities": []
+    },
+    {
+      "text": "enumerame el grupo familiar del rut",
+      "intent": "RSH.ObtenerGrupoFamiliar",
+      "entities": []
+    },
+    {
+      "text": "enumerame el grupo familiar",
+      "intent": "RSH.ObtenerGrupoFamiliar",
+      "entities": []
+    },
+    {
+      "text": "cuentame el grupo familiar",
+      "intent": "RSH.ObtenerGrupoFamiliar",
+      "entities": []
+    },
+    {
+      "text": "cuentame el grupo familiar del rut",
+      "intent": "RSH.ObtenerGrupoFamiliar",
+      "entities": []
+    },
+    {
+      "text": "habla el grupo familiar",
+      "intent": "RSH.ObtenerGrupoFamiliar",
+      "entities": []
+    },
+    {
+      "text": "habla el grupo familiar del rut",
+      "intent": "RSH.ObtenerGrupoFamiliar",
+      "entities": []
+    },
+    {
+      "text": "manifiesta el grupo familiar",
+      "intent": "RSH.ObtenerGrupoFamiliar",
+      "entities": []
+    },
+    {
+      "text": "manifiesta el grupo familiar del rut",
+      "intent": "RSH.ObtenerGrupoFamiliar",
+      "entities": []
+    },
+    {
+      "text": "declara el grupo familiar",
+      "intent": "RSH.ObtenerGrupoFamiliar",
+      "entities": []
+    },
+    {
+      "text": "declara el grupo familiar del rut",
+      "intent": "RSH.ObtenerGrupoFamiliar",
+      "entities": []
+    },
+    {
+      "text": "expresa el grupo familiar",
+      "intent": "RSH.ObtenerGrupoFamiliar",
+      "entities": []
+    },
+    {
+      "text": "expresa el grupo familiar del rut",
+      "intent": "RSH.ObtenerGrupoFamiliar",
+      "entities": []
+    },
+    {
+      "text": "expone el grupo familiar",
+      "intent": "RSH.ObtenerGrupoFamiliar",
+      "entities": []
+    },
+    {
+      "text": "expone el grupo familiar del rut",
+      "intent": "RSH.ObtenerGrupoFamiliar",
+      "entities": []
+    },
+    {
+      "text": "menciona el grupo familiar",
+      "intent": "RSH.ObtenerGrupoFamiliar",
+      "entities": []
+    },
+    {
+      "text": "menciona el grupo familiar del rut",
+      "intent": "RSH.ObtenerGrupoFamiliar",
+      "entities": []
+    },
+    {
+      "text": "nombra el grupo familiar del rut",
+      "intent": "RSH.ObtenerGrupoFamiliar",
+      "entities": []
+    },
+    {
+      "text": "nombra el grupo familiar",
+      "intent": "RSH.ObtenerGrupoFamiliar",
+      "entities": []
+    },
+    {
+      "text": "formula el grupo familiar",
+      "intent": "RSH.ObtenerGrupoFamiliar",
+      "entities": []
+    },
+    {
+      "text": "formula el grupo familiar del rut",
+      "intent": "RSH.ObtenerGrupoFamiliar",
+      "entities": []
+    },
+    {
+      "text": "anuncia el grupo familiar del rut",
+      "intent": "RSH.ObtenerGrupoFamiliar",
+      "entities": []
+    },
+    {
+      "text": "anuncia el grupo familiar",
+      "intent": "RSH.ObtenerGrupoFamiliar",
+      "entities": []
+    },
+    {
+      "text": "enuncia el grupo familiar",
+      "intent": "RSH.ObtenerGrupoFamiliar",
+      "entities": []
+    },
+    {
+      "text": "enuncia el grupo familiar del rut",
+      "intent": "RSH.ObtenerGrupoFamiliar",
+      "entities": []
+    },
+    {
+      "text": "enumera el grupo familiar",
+      "intent": "RSH.ObtenerGrupoFamiliar",
+      "entities": []
+    },
+    {
+      "text": "enumera el grupo familiar del rut",
+      "intent": "RSH.ObtenerGrupoFamiliar",
+      "entities": []
+    },
+    {
+      "text": "me puedes conseguir el tramo",
+      "intent": "RSH.ObtenerTramoRsh",
+      "entities": []
+    },
+    {
+      "text": "me puedes conseguir el tramo de esta familia",
+      "intent": "RSH.ObtenerTramoRsh",
+      "entities": []
+    },
+    {
+      "text": "me puedes conseguir el tramo de este rut",
+      "intent": "RSH.ObtenerTramoRsh",
+      "entities": []
+    },
+    {
+      "text": "consigueme el tramo de este rut",
+      "intent": "RSH.ObtenerTramoRsh",
+      "entities": []
+    },
+    {
+      "text": "consigueme el tramo de esta familia",
+      "intent": "RSH.ObtenerTramoRsh",
+      "entities": []
+    },
+    {
+      "text": "consigueme el tramo",
+      "intent": "RSH.ObtenerTramoRsh",
+      "entities": []
+    },
+    {
+      "text": "expresa el tramo",
+      "intent": "RSH.ObtenerTramoRsh",
+      "entities": []
+    },
+    {
+      "text": "expresa el tramo de esta familia",
+      "intent": "RSH.ObtenerTramoRsh",
+      "entities": []
+    },
+    {
+      "text": "expresa el tramo de este rut",
+      "intent": "RSH.ObtenerTramoRsh",
+      "entities": []
+    },
+    {
+      "text": "expresame el tramo",
+      "intent": "RSH.ObtenerTramoRsh",
+      "entities": []
+    },
+    {
+      "text": "expresame el tramo de esta familia",
+      "intent": "RSH.ObtenerTramoRsh",
+      "entities": []
+    },
+    {
+      "text": "expresame el tramo de este rut",
+      "intent": "RSH.ObtenerTramoRsh",
+      "entities": []
+    },
+    {
+      "text": "cuentame del tramo de esta persona",
+      "intent": "RSH.ObtenerTramoRsh",
+      "entities": []
+    },
+    {
+      "text": "cuentame del tramo de esta familia",
+      "intent": "RSH.ObtenerTramoRsh",
+      "entities": []
+    },
+    {
+      "text": "cuentame del tramo de este rut",
+      "intent": "RSH.ObtenerTramoRsh",
+      "entities": []
+    },
+    {
+      "text": "informa el tramo de este rut",
+      "intent": "RSH.ObtenerTramoRsh",
+      "entities": []
+    },
+    {
+      "text": "me puedes informar el tramo de este rut",
+      "intent": "RSH.ObtenerTramoRsh",
+      "entities": []
+    },
+    {
+      "text": "me puedes informar el tramo",
+      "intent": "RSH.ObtenerTramoRsh",
+      "entities": []
+    },
+    {
+      "text": "me puedes informar el tramo de esta familia",
+      "intent": "RSH.ObtenerTramoRsh",
+      "entities": []
+    },
+    {
+      "text": "explicame el tramo de esta familia",
+      "intent": "RSH.ObtenerTramoRsh",
+      "entities": []
+    },
+    {
+      "text": "explicame a que tramo pertenece esta familia",
+      "intent": "RSH.ObtenerTramoRsh",
+      "entities": []
+    },
+    {
+      "text": "explicame a que tramo pertenece este rut",
+      "intent": "RSH.ObtenerTramoRsh",
+      "entities": []
+    },
+    {
+      "text": "explicame a que tramo pertenece",
+      "intent": "RSH.ObtenerTramoRsh",
+      "entities": []
+    },
+    {
+      "text": "dime el tramo de este rut",
+      "intent": "RSH.ObtenerTramoRsh",
+      "entities": []
+    },
+    {
+      "text": "dime el tramo de",
+      "intent": "RSH.ObtenerTramoRsh",
+      "entities": []
+    },
+    {
+      "text": "mencioname el tramo de esta familia",
+      "intent": "RSH.ObtenerTramoRsh",
+      "entities": []
+    },
+    {
+      "text": "mencioname el tramo de este rut",
+      "intent": "RSH.ObtenerTramoRsh",
+      "entities": []
+    },
+    {
+      "text": "mencioname el tramo",
+      "intent": "RSH.ObtenerTramoRsh",
+      "entities": []
+    },
+    {
+      "text": "oye dame el tramo",
+      "intent": "RSH.ObtenerTramoRsh",
+      "entities": []
+    },
+    {
+      "text": "oye dame el tramo de rsh",
+      "intent": "RSH.ObtenerTramoRsh",
+      "entities": []
+    },
+    {
+      "text": "oye dame la rsh",
+      "intent": "RSH.ObtenerTramoRsh",
+      "entities": []
+    },
+    {
+      "text": "oye dame la rsh del rut",
+      "intent": "RSH.ObtenerTramoRsh",
+      "entities": []
+    },
+    {
+      "text": "oeh dame la rsh",
+      "intent": "RSH.ObtenerTramoRsh",
+      "entities": []
+    },
+    {
+      "text": "oeh dame el tramo de esta familia",
+      "intent": "RSH.ObtenerTramoRsh",
+      "entities": []
+    },
+    {
+      "text": "wenos dias",
+      "intent": "Saludo",
+      "entities": []
+    },
+    {
+      "text": "wena socio",
+      "intent": "Saludo",
+      "entities": []
+    },
+    {
+      "text": "k pa",
+      "intent": "Saludo",
+      "entities": []
+    },
+    {
+      "text": "ola que hace",
+      "intent": "Saludo",
+      "entities": []
+    },
+    {
+      "text": "holiwa",
+      "intent": "Saludo",
+      "entities": []
+    },
+    {
+      "text": "uena hermane",
+      "intent": "Saludo",
+      "entities": []
+    },
+    {
+      "text": "bonita hermano",
+      "intent": "Saludo",
+      "entities": []
+    },
+    {
+      "text": "que pasa compipa",
+      "intent": "Saludo",
+      "entities": []
+    },
+    {
+      "text": "chao, como estas ?",
+      "intent": "Despedida",
+      "entities": []
+    },
+    {
+      "text": "saludos por alla",
+      "intent": "Despedida",
+      "entities": []
+    },
+    {
+      "text": "cuidese",
+      "intent": "Despedida",
+      "entities": []
+    },
+    {
+      "text": "buena suerte",
+      "intent": "Despedida",
+      "entities": []
+    },
+    {
+      "text": "me tengo que ir, que estes bien",
+      "intent": "Despedida",
+      "entities": []
+    },
+    {
+      "text": "me tengo que marchar, nos vemos pronto",
+      "intent": "Despedida",
+      "entities": []
+    },
+    {
+      "text": "adios, me desconectare",
+      "intent": "Despedida",
+      "entities": []
+    },
+    {
+      "text": "gracias por tu ayuda, nos vemos",
+      "intent": "Despedida",
+      "entities": []
+    },
+    {
+      "text": "gracias, nos vemos",
+      "intent": "Despedida",
+      "entities": []
+    },
+    {
+      "text": "luego nos vemos, que estes bien",
+      "intent": "Despedida",
+      "entities": []
+    },
+    {
+      "text": "que tengas buen día, saludos",
+      "intent": "Despedida",
+      "entities": []
+    },
+    {
+      "text": "wena amigo",
+      "intent": "Saludo",
+      "entities": []
+    }
+  ]
+}
