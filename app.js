@@ -8,7 +8,8 @@ var builder = require('botbuilder');
 var botbuilder_azure = require("botbuilder-azure");
 const soap = require('soap')
 var Rut = require('rutjs')
-
+var dinbot = require('./extensions/dinbot')
+require('dotenv').config()
 
 // Setup Restify Server
 var server = restify.createServer();
@@ -38,7 +39,7 @@ var tableStorage = new botbuilder_azure.AzureBotStorage({ gzipData: false }, azu
 
 // Create your bot with a function to receive messages from the user
 var bot = new builder.UniversalBot(connector);
-bot.set('storage', tableStorage);
+//bot.set('storage', tableStorage);
 
 // Make sure you add code to validate these fields
 var luisAppId = process.env.LuisAppId;
@@ -49,6 +50,11 @@ const LuisModelUrl = 'https://' + luisAPIHostName + '/luis/v1/application?id=' +
 
 // Main dialog with LUIS
 var recognizer = new builder.LuisRecognizer(LuisModelUrl);
+
+dinbot.set(bot,builder,recognizer)
+dinbot.setPrompts()
+dinbot.setDialogs()
+
 var intents = new builder.IntentDialog({ recognizers: [recognizer] })
 .matches('Saludo', function(session){
     session.beginDialog('Saludo');
@@ -57,15 +63,15 @@ var intents = new builder.IntentDialog({ recognizers: [recognizer] })
     session.beginDialog('Ayuda');
 })
 .matches('Cancelar', function(session){
-    session.beginDialog('Cancelar');
+    //session.beginDialog('Cancelar');
 })
 .matches('Despedida', function(session){
     session.beginDialog('Despedida');
 })
-.matches('RSH.ObtenerTramoRsh', function(session, args){
-    session.beginDialog('ObtenerTramoRsh', args);
+.matches('RSH.ObtenerTramo', function(session, args){
+    dinbot.beginDialog('ObtenerTramoRsh', session, args);
 })
-.matches('ObtenergrupofamiliarRSH', function(session){
+.matches('RSH.ObtenerGrupoFamiliar', function(session){
     session.beginDialog('ObtenergrupofamiliarRSH');
 })
 .onDefault((session) => {
@@ -80,115 +86,35 @@ bot.dialog('/', intents);
 
 bot.dialog('Saludo', [
     function (session, args, next) {
-        session.endDialog('has llegado hasta la intención [Saludo], lo que tú has dicho fue \'%s\'.', session.message.text)
+        session.endDialog('Hola. ¿en qué puedo ayudarle?')
     },
 ]);
 
 bot.dialog('Ayuda', [
     function (session, args, next) {
-        session.endDialog('has llegado hasta la intención [Ayuda], lo que tú has dicho fue  \'%s\'.', session.message.text);
+        session.endDialog('Ha consultado por ayuda, por ahora solo puedo obtener la información del tramo en RSH.\n!Pronto tendré más opciones!.');
     },
 ]);
-
+/*
 bot.dialog('Cancelar', [
     function (session, args, next) {
-        session.endDialog('has llegado hasta la intención [Cancelar], lo que tú has dicho fue \'%s\'.', session.message.text);
+        session.endDialog('Ha solicitado cancelar la acción');
     },
 ]);
-
+*/
 bot.dialog('Despedida', [
     function (session, args, next) {
-        session.endDialog('Hasta luego, que tengas un buen día!',session.message.text);
+        session.endConversation('Hasta luego, !que tenga un buen día!',session.message.text);
     },
-]);
-
-bot.dialog('ObtenerTramoRsh', [
-    function (session, args, next) {
-        var RUT = builder.EntityRecognizer.findEntity(args.entities, 'RUT');
-        //var _RUT = entites ? entites.entity : null;
-
-        if (!RUT) {
-            builder.Prompts.ValidarRut(session, "¿Cual es el rut que quiere consultar?");
-        } else {
-            next({ response: RUT.entity });
-        }
-        //session.endDialog('has llegado hasta la intención [Obtener  tramo en RSH], lo que tú has dicho fue  \'%s\'.', session.message.text);
-    },
-    (session, results) => {
-        console.log('.-------------------->')
-        console.log(results)
-        var rut = new Rut(results.response);
-        var digitos = rut.rut;
-        var verificador = rut.checkDigit;
-        //14353664 5
-        var args = { entradaRSH: { Rut: digitos, Dv: verificador, Periodo: '-1', UsSist: '1' } };
-    
-    
-        soap.createClient('http://wsminvuni.test.minvu.cl/WSICEMds/RegistroSocialHogares.svc?singleWsdl', function (err, client) {
-            setTimeout(() => {
-                if(err){
-                    session.send('Error al consultar RSH');
-                    console.log(err)
-                }
-                else{
-                    client['ObtenerRegistroSocialHogares' + 'Async'](args).then((result) => {
-                        var tramo = result.ObtenerRegistroSocialHogaresResult.RESPUESTA.salidaRSH.RshMinvu.Tramo;
-                        session.send('El tramo del rut' + rut + ' es ' + tramo, session.message.text);
-                    }).catch(() => {
-                        session.send('Error en la consulta del tramo de RSH');
-                    });
-                }
-            }, 5000);
-    
-    
-        });
-        session.endDialog()
-    }
 ]);
 
 bot.dialog('ObtenergrupofamiliarRSH', [
     function (session, args, next) {
-        session.endDialog('has llegado hasta la intención [Obtener grupo familiar en RSH ], lo que tú has dicho fue \'%s\'.', session.message.text);
+        session.endDialog('Lo lamento, aún no puedo resolver esta solicitud. Consulta por ayuda para conocer mis opciones.');
     },
 ]);
-
-
-
-
-
-
-
 
 /***
  * Genera un prompt para recibir un rut válido y retorna solo el rut
  * 
  */
-var prompt = new builder.Prompt({ defaultRetryPrompt: "Lo siento. No reconozco el rut. Intente nuevamente." })
-    .onRecognize(function (context, callback) {
-        // Call prompts recognizer
-        recognizer.recognize(context, function (err, result) {
-            if (result && result.intent !== 'Cancelar') {
-                //regex para detectar rut entre texto
-                const regex = /(0?[1-9]{1,2})(((\.\d{3}){2,}\-)|((\d{3}){2,}\-)|((\d{3}){2,}))([\dkK])/g;
-                //obtiene los grupos reconocidos según el regex
-                var groups = (new RegExp(regex)).exec(context.message.text)
-                //en caso de obtener los grupos validos del regex en el texto se genera como rut para validar, en caso contrario no se encuentra rut.
-                var RutValido = groups ? new Rut(groups[0]).validate() : false;
-
-                if (RutValido) callback(null, 1, groups[0]);
-                else callback(null, 0.0);
-            }
-            else {
-                callback(null, 1, 'cancel');
-            }
-        });
-    });
-// Add your prompt as a dialog to your bot
-bot.dialog('ValidarRut', prompt);
-
-// Add function for calling your prompt from anywhere
-builder.Prompts.ValidarRut = function (session, prompt, options) {
-    var args = options || {};
-    args.prompt = prompt || options.prompt;
-    session.beginDialog('ValidarRut', args);
-}
