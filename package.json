@@ -20,7 +20,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" &i & exit 1",
-    "start":"nodemon ./app.js"
+    "start": "nodemon ./app.js"
   },
   "author": "",
   "license": "ISC",
