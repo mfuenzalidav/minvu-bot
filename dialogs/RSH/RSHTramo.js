@@ -11,8 +11,10 @@ function RSHTramo(builder) {
 
         //regex para detectar rut entre texto
         const regex = /(0?[1-9]{1,2})(((\.\d{3}){2,}\-)|((\d{3}){2,}\-)|((\d{3}){2,}))([\dkK])/g;
+
         //obtiene los grupos reconocidos según el regex
         var groups = (new RegExp(regex)).exec(session.message.text)
+
         //en caso de obtener los grupos validos del regex en el texto se genera como rut para validar, en caso contrario no se encuentra rut.
         var RutValido = groups ? new Rut(groups[0]).validate() : false;
 
@@ -50,8 +52,13 @@ function RSHTramo(builder) {
                     }
                     else {
                         if (result.ObtenerRegistroSocialHogaresResult.RESPUESTA.salidaRSH.Estado === 1){
-                            const tramo = result.ObtenerRegistroSocialHogaresResult.RESPUESTA.salidaRSH.RshMinvu.Tramo
-                            session.send('Con respecto a su consulta al tramo en RSH, el tramo del rut ' + rut.getNiceRut() + ' es ' + tramo);
+                            const objetoRsh = result.ObtenerRegistroSocialHogaresResult.RESPUESTA.salidaRSH.RshMinvu                            
+                            const rutCompleto = rut.getNiceRut()
+
+                            var card = createHeroCard(session, rutCompleto, objetoRsh);
+                            var msg = new builder.Message(session).addAttachment(card);
+                            session.send(msg);
+
                         }
                         else if (result.ObtenerRegistroSocialHogaresResult.RESPUESTA.salidaRSH.Estado === 2)
                             session.send('Con respecto a su consulta al tramo en RSH, el rut ' + rut.getNiceRut() + ' no tiene registros en RSH');
@@ -66,6 +73,20 @@ function RSHTramo(builder) {
         })
         session.endDialog()
     }]
+
+    function createHeroCard(session, rutCompleto, objetoRsh) {
+
+        var datosPersona = '';
+        datosPersona = `NOMBRE: ${objetoRsh.Nombres} ${objetoRsh.ApellidoPaterno} ${objetoRsh.ApellidoMaterno} TRAMO: ${objetoRsh.Tramo}`
+        
+        console.log(datosPersona);
+
+        return new builder.HeroCard(session)
+            .title('RSH.- Tramo')
+            .subtitle('Rut: ' +rutCompleto)
+            .text(datosPersona)
+            .images([builder.CardImage.create(session, process.env.BANNER_GOB)]);
+    }
 
 }
 exports.RSHTramo = RSHTramo;
