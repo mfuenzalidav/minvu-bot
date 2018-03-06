@@ -1,4 +1,9 @@
+App_Data/
+bin/
 node_modules/
+PostDeployScripts/
 *.js.map
-package-lock.json
-package.json
+.vscode
+ApplicationInsights.config
+iisnode.yml
+web.config
