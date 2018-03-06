@@ -1,9 +1,9 @@
 node_modules/
 *.js.map
-package-lock.json
 package.json
 ApplocacionInsights.config
 App_Data
 bin
 .vscode
 .env
+web.config
