@@ -18,41 +18,44 @@ function SPSEstadoPago(builder) {
         if ((!groups && !RutValido) || !groups) {
             builder.Prompts.ValidarRut(session, "¿Cuál es el rut que quiere consultar?");
         } else {
-            next({ response: groups[0] });
+            next({ response: groups[0] })
         }
     },
     (session, results) => {
         if (results === 'cancel')
             session.endDialog('Ha cancelado la consulta del tramo en RSH');
 
-        var rut = new Rut(results.response);
-        var digitos = rut.rut;
-        var verificador = rut.checkDigit;
+        var rut = new Rut(results.response)
+        var digitos = rut.rut
+        var verificador = rut.checkDigit
 
         new sql.ConnectionPool(process.env.DBPagoSubsidios)
             .connect().then(pool => {
                 // Query
-
+                //Obtiene el PA de consumo de SPS
                 return pool.request()
                     .input('RutBeneficiario', sql.Int, digitos)
                     .input('DigitoVerificador', sql.Char(1), verificador)
                     .execute('USP_CON_SPS_ESTADO_PAGO')
-                //.query('select * from PAGOSUBSIDIO_INFORMACION_BENEFICIO where rutbeneficiario = @RutBeneficiario')
             }).then(result => {
+                //si encuentra resultado crea las tarjetas, en caso de no encontrar resultado entrega mensaje que no encuentra registros
                 //console.log(result.recordsets)
-                if (result.recordsets.length > 0) {
+                if (result.recordsets[0].length > 0) {
                     var cards = new Array();
+                    //Manda los beneficios encontrados para crearlos en tarjetas
                     for (var i = 0; i < result.recordsets[0].length; i++) {
                         item = result.recordsets[0][i]
+                        //lo agrega a un array de tarjetas
                         cards.push(createHeroCard(session, rut.getNiceRut(), item))
                     }
 
+                    //crea un carousel con las tarjetas antes creadas
                     var reply = new builder.Message(session)
                         .attachmentLayout(builder.AttachmentLayout.carousel)
-                        .attachments(cards);
+                        .attachments(cards)
 
-                    session.send(`Con respecto a la consulta del estado de pago del rut: ${rut.getNiceRut()} le puedo dar la siguiente información:` )
-                    session.send(reply);
+                    session.send(`Con respecto a la consulta del estado de pago del rut: ${rut.getNiceRut()} le puedo dar la siguiente información:`)
+                    session.send(reply)
 
                 }
                 else
@@ -66,45 +69,33 @@ function SPSEstadoPago(builder) {
                 console.dir(err)
                 sql.close()
             });
-            session.endDialog();
+        session.endDialog()
     }]
 
     function createHeroCard(session, rutCompleto, objPersona) {
         var detalleBeneficiario;
         var fechaUltimoPago = 'Sin registro';
-        if(!util.isNullOrUndefined(objPersona.FechaUltimoPago))
-        {
+        if (!util.isNullOrUndefined(objPersona.FechaUltimoPago)) {
             var dia = objPersona.FechaUltimoPago.getDate() < 10 ? `0${objPersona.FechaUltimoPago.getDate()}` : `${objPersona.FechaUltimoPago.getDate()}`
             var mes = objPersona.FechaUltimoPago.getMonth() < 10 ? `0${objPersona.FechaUltimoPago.getMonth()}` : `${objPersona.FechaUltimoPago.getMonth()}`
             var año = objPersona.FechaUltimoPago.getFullYear()
             fechaUltimoPago = `${dia}/${mes}/${año}`
         }
 
-        detalleBeneficiario = `**NÚMERO CERTIFICADO**: ${objPersona.NumeroCertificado}`
-            + `\n\n**PROGRAMA ORIGEN**: ${objPersona.ProgramaOrigen}`
-            + `\n\n**PROGRAMA APLICADO**: ${objPersona.ProgramaAplicado}`
-            + `\n\n**MONTO UF OTORGADO**: ${((util.isNullOrUndefined(objPersona.MontoUFOtorgado)) ? `Sin Registro` : objPersona.MontoUFOtorgado)}`
-            + `\n\n**MONTO UF PAGADO**: ${((util.isNullOrUndefined(objPersona.MontoUFPagado)) ? `Sin Registro` : objPersona.MontoUFPagado)}`
+        detalleBeneficiario = `**NÚMERO CERTIFICADO**: ${(util.isNullOrUndefined(objPersona.NumeroCertificado) ? `Sin Registro` : objPersona.NumeroCertificado)}`
+            + `\n\n**PROGRAMA ORIGEN**: ${(util.isNullOrUndefined(objPersona.ProgramaOrigen) ? `Sin Registro` : objPersona.ProgramaOrigen)}`
+            + `\n\n**PROGRAMA APLICADO**: ${(util.isNullOrUndefined(objPersona.ProgramaAplicado) ? `Sin Registro` : objPersona.ProgramaAplicado)}`
+            + `\n\n**MONTO UF OTORGADO**: ${(util.isNullOrUndefined(objPersona.MontoUFOtorgado) ? `Sin Registro` : objPersona.MontoUFOtorgado)}`
+            + `\n\n**MONTO UF PAGADO**: ${(util.isNullOrUndefined(objPersona.MontoUFPagado) ? `Sin Registro` : objPersona.MontoUFPagado)}`
             + `\n\n**FECHA ÚLTIMO PAGO**: ${fechaUltimoPago}`
-        /*
-        RutBeneficiario
-        DigitoVerificador
-        NumeroCertificado
-       
-        MontoUFOtorgado
-        MontoUFPagado
-        FechaUltimoPago
-        
-        ProgramaOrigen
-        ProgramaAplicado
-        */
+
         return new builder.HeroCard(session)
             .title('SPS - Estado de Pago')
             .subtitle('Beneficiario: ' + rutCompleto)
             .text(detalleBeneficiario)
             .images([
                 builder.CardImage.create(session, 'http://cdn.minvu.cl/NGM5.0/images/line-head-title.jpg')
-            ]);
+            ])
     }
 
 }

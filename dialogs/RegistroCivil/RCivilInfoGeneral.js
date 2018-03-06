@@ -53,7 +53,7 @@ function RCivilInfoGeneral(builder) {
                 console.log(err)
             }
             else {
-                client['ope_prt_regcivil_info_persona' + 'Async'](args).then((result) => {
+                client['ope_prt_regcivil_info_personaAsync'](args).then((result) => {
                     console.log(result);
                     if (!result.ICE.RESULTADO ||
                         !result.ICE.minvuRutData ||

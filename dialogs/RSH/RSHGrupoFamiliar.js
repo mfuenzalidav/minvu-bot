@@ -35,7 +35,7 @@ function RSHGrupoFamiliar(builder) {
                     console.log(err)
                 }
                 else {
-                    client['ObtenerRegistroSocialHogares' + 'Async'](args).then((result) => {
+                    client['ObtenerRegistroSocialHogaresAsync'](args).then((result) => {
                         if (!result.ObtenerRegistroSocialHogaresResult.RESULTADO ||
                             !result.ObtenerRegistroSocialHogaresResult.RESPUESTA ||
                             !result.ObtenerRegistroSocialHogaresResult.RESPUESTA.salidaRSH) {

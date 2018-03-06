@@ -23,7 +23,7 @@ function RSHTramo(builder) {
         
 
         if (!groups || !RutValido) {
-            //message.send(!RutValido ? 'El rut que quiere consultar esta inválido.' : 'Debe entregarme un rut para consultar.')
+            message.send(!RutValido ? 'El rut no es válido 😒' : 'Debes entregarme un rut para consultar 🙄')
             builder.Prompts.ValidarRut(session, "🤔... ¿Cuál rut vamos a consultar? 😈");
 
         }
@@ -44,7 +44,7 @@ function RSHTramo(builder) {
 
         session.send('Me pediste el siguiente rut: ' + rut.getNiceRut() + ' 📍');
 
-        soap.createClient('http://wsminvuni.test.minvu.cl/WSICEMds/RegistroSocialHogares.svc?singleWsdl', function (err, client) {
+        soap.createClient(process.env.SOAP_RSH, function (err, client) {
             if (err) {
                 console.log('ERROR EN RSH TRAMO' + err)
                 session.send('¡Lo lamento!, 😭, hubo un error al consultar el servicio de RSH 😅');
@@ -84,7 +84,8 @@ function RSHTramo(builder) {
     function createHeroCard(session, rutCompleto, objetoRsh) {
 
         var datosPersona = '';
-        datosPersona = `NOMBRE: ${objetoRsh.Nombres} ${objetoRsh.ApellidoPaterno} ${objetoRsh.ApellidoMaterno} TRAMO: ${objetoRsh.Tramo}`
+        datosPersona = `NOMBRE: ${objetoRsh.Nombres} ${objetoRsh.ApellidoPaterno} ${objetoRsh.ApellidoMaterno}
+        \n\n TRAMO: ${objetoRsh.Tramo}`
         
         console.log(datosPersona);
 
