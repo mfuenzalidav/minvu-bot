@@ -3,16 +3,7 @@ bin/
 node_modules/
 PostDeployScripts/
 *.js.map
-<<<<<<< HEAD
-package.json
-ApplocacionInsights.config
-App_Data
-bin
-.vscode
-.env
-=======
 .vscode
 ApplicationInsights.config
 iisnode.yml
->>>>>>> refs/remotes/origin/master
 web.config
