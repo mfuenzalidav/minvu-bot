@@ -66,6 +66,7 @@ function SPSEstadoPago(builder) {
                 console.dir(err)
                 sql.close()
             });
+            session.endDialog();
     }]
 
     function createHeroCard(session, rutCompleto, objPersona) {

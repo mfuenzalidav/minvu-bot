@@ -1,7 +1,7 @@
 
-var dialogs = require('./dialogs')
-var customprompts = require('./prompts')
-var util = require('util');
+var dialogs         = require('./dialogs')
+var customprompts   = require('./prompts')
+var util            = require('util');
 
 var Dinbot = {
     set: function (bot, builder, recognizer) {
