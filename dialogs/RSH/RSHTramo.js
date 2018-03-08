@@ -21,14 +21,12 @@ function RSHTramo(builder) {
 
         session.send('¡Muy bien! Vamos a realizar una consulta en el servicio de RSH 😁');
         
-
         if (!groups || !RutValido) {
             session.send(!RutValido ? 'El rut no es válido 😒' : 'Debes entregarme un rut para consultar 🙄')
             builder.Prompts.ValidarRut(session, "🤔... ¿Cuál rut vamos a consultar? 😈");
 
         }
-        if ((!groups && !RutValido) || !groups) {
-        } else {
+         else {
             next({ response: groups[0] });
         }
     },
@@ -48,6 +46,7 @@ function RSHTramo(builder) {
             if (err) {
                 console.log('ERROR EN RSH TRAMO' + err)
                 session.send('¡Lo lamento!, 😭, hubo un error al consultar el servicio de RSH 😅');
+
             }
             else {
                 client['ObtenerRegistroSocialHogaresAsync'](args).then((result) => {
@@ -74,6 +73,7 @@ function RSHTramo(builder) {
                     }
                 }).catch((err) => {
                     console.log('ERROR EN RSH TRAMO' + err)
+
                     session.send('¡Lo lamento!, 😭, hubo un error al consultar el servicio de RSH 😅');
                 });
             }
@@ -86,6 +86,7 @@ function RSHTramo(builder) {
         var datosPersona = '';
         datosPersona = `NOMBRE: ${objetoRsh.Nombres} ${objetoRsh.ApellidoPaterno} ${objetoRsh.ApellidoMaterno}
         \n\n TRAMO: ${objetoRsh.Tramo}`
+
         
         console.log(datosPersona);
 
