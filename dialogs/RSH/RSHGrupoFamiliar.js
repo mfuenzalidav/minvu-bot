@@ -7,7 +7,7 @@ function RSHGrupoFamiliar(builder) {
 
     this.dialogId = 'ObtenerGrupoFamiliarRsh'
     this.dialog = [
-        (session) => {
+        (session, args,next) => {
             const regex = /(0?[1-9]{1,2})(((\.\d{3}){2,}\-)|((\d{3}){2,}\-)|((\d{3}){2,}))([\dkK])/g;
             var groups = (new RegExp(regex)).exec(session.message.text)
             var RutValido = groups ? new Rut(groups[0]).validate() : false;
@@ -35,7 +35,7 @@ function RSHGrupoFamiliar(builder) {
                     console.log(err)
                 }
                 else {
-                    client['ObtenerRegistroSocialHogares' + 'Async'](args).then((result) => {
+                    client['ObtenerRegistroSocialHogaresAsync'](args).then((result) => {
                         if (!result.ObtenerRegistroSocialHogaresResult.RESULTADO ||
                             !result.ObtenerRegistroSocialHogaresResult.RESPUESTA ||
                             !result.ObtenerRegistroSocialHogaresResult.RESPUESTA.salidaRSH) {

@@ -17,12 +17,16 @@ function RSHTramo(builder) {
 
         //en caso de obtener los grupos validos del regex en el texto se genera como rut para validar, en caso contrario no se encuentra rut.
         var RutValido = groups ? new Rut(groups[0]).validate() : false;
+        console.log(RutValido)
 
         session.send('¡Muy bien! Vamos a realizar una consulta en el servicio de RSH 😁');
-
-        if ((!groups && !RutValido) || !groups) {
+        
+        if (!groups || !RutValido) {
+            session.send(!RutValido ? 'El rut no es válido 😒' : 'Debes entregarme un rut para consultar 🙄')
             builder.Prompts.ValidarRut(session, "🤔... ¿Cuál rut vamos a consultar? 😈");
-        } else {
+
+        }
+         else {
             next({ response: groups[0] });
         }
     },
@@ -38,13 +42,15 @@ function RSHTramo(builder) {
 
         session.send('Me pediste el siguiente rut: ' + rut.getNiceRut() + ' 📍');
 
-        soap.createClient('http://wsminvuni.test.minvu.cl/WSICEMds/RegistroSocialHogares.svc?singleWsdl', function (err, client) {
+        soap.createClient(process.env.SOAP_RSH, function (err, client) {
             if (err) {
+                console.log('ERROR EN RSH TRAMO' + err)
                 session.send('¡Lo lamento!, 😭, hubo un error al consultar el servicio de RSH 😅');
-                console.log(err)
+
             }
             else {
-                client['ObtenerRegistroSocialHogares' + 'Async'](args).then((result) => {
+                client['ObtenerRegistroSocialHogaresAsync'](args).then((result) => {
+                    console.log(result)
                     if (!result.ObtenerRegistroSocialHogaresResult.RESULTADO ||
                         !result.ObtenerRegistroSocialHogaresResult.RESPUESTA ||
                         !result.ObtenerRegistroSocialHogaresResult.RESPUESTA.salidaRSH) {
@@ -66,7 +72,8 @@ function RSHTramo(builder) {
                             session.send('Intente consultar el tramo en RSH pero no reconozco la información que me entrega 😟');
                     }
                 }).catch((err) => {
-                    console.log(err)
+                    console.log('ERROR EN RSH TRAMO' + err)
+
                     session.send('¡Lo lamento!, 😭, hubo un error al consultar el servicio de RSH 😅');
                 });
             }
@@ -77,7 +84,9 @@ function RSHTramo(builder) {
     function createHeroCard(session, rutCompleto, objetoRsh) {
 
         var datosPersona = '';
-        datosPersona = `NOMBRE: ${objetoRsh.Nombres} ${objetoRsh.ApellidoPaterno} ${objetoRsh.ApellidoMaterno} TRAMO: ${objetoRsh.Tramo}`
+        datosPersona = `NOMBRE: ${objetoRsh.Nombres} ${objetoRsh.ApellidoPaterno} ${objetoRsh.ApellidoMaterno}
+        \n\n TRAMO: ${objetoRsh.Tramo}`
+
         
         console.log(datosPersona);
 
