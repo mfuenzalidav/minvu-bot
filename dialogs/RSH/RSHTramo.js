@@ -23,7 +23,7 @@ function RSHTramo(builder) {
         
 
         if (!groups || !RutValido) {
-            message.send(!RutValido ? 'El rut no es válido 😒' : 'Debes entregarme un rut para consultar 🙄')
+            session.send(!RutValido ? 'El rut no es válido 😒' : 'Debes entregarme un rut para consultar 🙄')
             builder.Prompts.ValidarRut(session, "🤔... ¿Cuál rut vamos a consultar? 😈");
 
         }

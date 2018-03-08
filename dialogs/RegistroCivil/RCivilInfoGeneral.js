@@ -93,56 +93,39 @@ function RCivilInfoGeneral(builder) {
         var array = new Array();
         array.push(createPersonaHeroCard(session, rutCompleto, objRegistroCivil.persona))
         if (objRegistroCivil.matrimonio)
-            array.push(createMatrimonioHeroCard(session, objRegistroCivil.matrimonio))
+            array.push(createMatrimonioHeroCard(session, objRegistroCivil.matrimonio))    
 
-            //console.log(array)
+        if (objRegistroCivil.hijo)
+        {
+            for(var i = 0; i < objRegistroCivil.hijo.length;i++)
+            {
+                 array.push(createNucleoHeroCard(session, rutCompleto, objRegistroCivil.hijo[i]))
+            }
+        }
+        //console.log(array)
 
         return array
-        //createNucleoHeroCard(session, rutCompleto, objRegistroCivil.hijo)
 
     }
 
     function createPersonaHeroCard(session, rutCompleto, objPersona) {
 
-        /*
-        var datosPersona = `Nombre: ${objPersona.nombres} ${objPersona.apPaterno} ${objPersona.apMaterno}` + `\n` +
-        `Fecha de Nacimiento: ${objPersona.fechaNaci}` + `\n` +
-        `Estado Civil: ${objPersona.estadoCivil}` + `\n` +
-        `Fecha de Defunción: ${objPersona.fechaDefun}` + `\n` +
-        `Estado Civil: ${objPersona.estadoCivil}` + `\n` +
-        `Nacionalidad: ${objPersona.nacionalidad}` + `\n` +
-        `Género: ${objPersona.sexo}`;
-        */
-
-        /*
-        var datosPersona = `Nombre: ${objPersona.nombres} ${objPersona.apPaterno} ${objPersona.apMaterno}  \n
-        Fecha de Nacimiento: ${objPersona.fechaNaci}  \n
-        Estado Civil: ${objPersona.estadoCivil}  \n
-        Fecha de Defunción: ${objPersona.fechaDefun}  \n
-        Estado Civil: ${objPersona.estadoCivil}  \n
-        Nacionalidad: ${objPersona.nacionalidad}  \n
-        Género: ${objPersona.sexo} \n
-        Información Discapacidad \n
-        Mental: ${objPersona.discapacidad.mental} \n
-        Sensorial: ${objPersona.discapacidad.sensorial}  \n
-        Física: ${objPersona.discapacidad.fisica}  \n
-        Fecha de Vencimiento: ${objPersona.discapacidad.fechaVenc}`;
-        */
-
         var datosPersona = '';
         datosPersona = `${datosPersona} 
-`+ `\n NOMBRE: ${objPersona.nombres} ${objPersona.apPaterno} ${objPersona.apMaterno}
-`+ ` \n FECHA NACIMIENTO: ${objPersona.fechaNaci}
-`+ `\n ESTADO CIVIL: ${objPersona.estadoCivil}
-`+ `\n FECHA DE DEFUNCIÓN: ${objPersona.fechaDefun}
-`+ `\n ESTADO CIVIL: ${objPersona.estadoCivil}
-`+ `\n NACIONALIDAD: ${objPersona.nacionalidad}
-`+ `\n GÉNERO: ${objPersona.sexo}
-`+ `\n INFORMACIÓN DISCAPACIDAD
-`+ `\n MENTAL: ${objPersona.discapacidad.mental}
-`+ `\n SENSORIAL: ${objPersona.discapacidad.sensorial}
-`+ `\n FÍSICA: ${objPersona.discapacidad.fisica}
-`+ `\n FECHA DE VENCIMIENTO: ${objPersona.discapacidad.fechaVenc}`
+            `+ `\n **NOMBRE:** ${objPersona.nombres} ${objPersona.apPaterno} ${objPersona.apMaterno}
+            `+ `\n **FECHA NACIMIENTO:** ${objPersona.fechaNaci}
+            `+ `\n **ESTADO CIVIL:** ${objPersona.estadoCivil}
+            `+ `\n **FECHA DE DEFUNCIÓN:** ${objPersona.fechaDefun}
+            `+ `\n **ESTADO CIVIL:** ${objPersona.estadoCivil}
+            `+ `\n **NACIONALIDAD:** ${objPersona.nacionalidad}
+            `+ `\n **GÉNERO:** ${objPersona.sexo}
+            `+ `
+
+            `+ `**INFORMACIÓN DISCAPACIDAD**
+            `+ `\n **MENTAL:** ${objPersona.discapacidad.mental}
+            `+ `\n **SENSORIAL:** ${objPersona.discapacidad.sensorial}
+            `+ `\n **FÍSICA:** ${objPersona.discapacidad.fisica}
+            `+ `\n **FECHA DE VENCIMIENTO:** ${objPersona.discapacidad.fechaVenc}`
 
         //console.log(datosPersona);
         return new builder.HeroCard(session)
@@ -159,35 +142,21 @@ function RCivilInfoGeneral(builder) {
         var datosConyuge = '';
         var rutConyuge = '';
         for (var i = 0; i < objMatrimonio.length; i++) {
-
-            /*
-            datosConyuge += `Nombre: ${objMatrimonio[i].conyuge[i].nombres} ${objMatrimonio[i].conyuge[i].apPaterno} ${objMatrimonio[i].conyuge[i].apMaterno}  \n
-            Fecha de Nacimiento: ${objMatrimonio[i].conyuge[i].fechaNaci}  \n
-            Estado Civil: ${objMatrimonio[i].conyuge[i].estadoCivil}  \n
-            Fecha de Defunción: ${objMatrimonio[i].conyuge[i].fechaDefun}  \n
-            Género: ${objMatrimonio[i].conyuge[i].sexo} \n
-            Capitulación: ${objMatrimonio[i].capitulacion} \n
-            Fecha Inscripción Matrimonio: ${objMatrimonio[i].fechaInscripcionMatrimonio} \n`                
-            */
-
             datosConyuge = `${datosConyuge} 
-            `+ `\n NOMBRE: ${objMatrimonio[i].conyuge[i].nombres} ${objMatrimonio[i].conyuge[i].apPaterno} ${objMatrimonio[i].conyuge[i].apMaterno}
-            `+ `\n FECHA DE NACIMIENTO: ${objMatrimonio[i].conyuge[i].fechaNaci}
-            `+ `\n ESTADO CIVIL: ${objMatrimonio[i].conyuge[i].estadoCivil}
-            `+ `\n FECHA DE DEFUNCIÓN: ${objMatrimonio[i].conyuge[i].fechaDefun}
-            `+ `\n GÉNERO: ${objMatrimonio[i].conyuge[i].sexo}
-            `+ `\n CAPITULACIÓN: ${objMatrimonio[i].capitulacion}
-            `+ `\n FECHA INSCRIPCIÓN MATRIMONIO: ${objMatrimonio[i].fechaInscripcionMatrimonio}`
-
-
-            /*Información Discapacidad \n;                
-            for (var j = 0; j < objMatrimonio[i].conyuge.length; j++) {
-            `${datosConyuge} 
-            `+ `Mental: ${objMatrimonio[i].conyuge[j].discapacidad.mental} \n
-                Sensorial: ${objMatrimonio[i].conyuge[j].discapacidad.sensorial}  \n
-                Física: ${objMatrimonio[i].conyuge[j].discapacidad.fisica}  \n
-                Fecha de Vencimiento: ${objMatrimonio[i].conyuge[j].discapacidad.fechaVenc}`;
-            }*/
+            `+ `\n **NOMBRE:** ${objMatrimonio[i].conyuge[i].nombres} ${objMatrimonio[i].conyuge[i].apPaterno} ${objMatrimonio[i].conyuge[i].apMaterno}
+            `+ `\n **FECHA DE NACIMIENTO:** ${objMatrimonio[i].conyuge[i].fechaNaci}
+            `+ `\n **ESTADO CIVIL:** ${objMatrimonio[i].conyuge[i].estadoCivil}
+            `+ `\n **FECHA DE DEFUNCIÓN:** ${objMatrimonio[i].conyuge[i].fechaDefun}
+            `+ `\n **GÉNERO:** ${objMatrimonio[i].conyuge[i].sexo}
+            `+ `\n **CAPITULACIÓN:** ${objMatrimonio[i].capitulacion}
+            `+ `\n **FECHA INSCRIPCIÓN MATRIMONIO:** ${objMatrimonio[i].fechaInscripcionMatrimonio}
+            `+ `
+            
+            `+ `**INFORMACIÓN DISCAPACIDAD**
+            `+ `\n **MENTAL:** ${objMatrimonio[i].conyuge[i].discapacidad.mental}
+            `+ `\n **SENSORIAL:** ${objMatrimonio[i].conyuge[i].discapacidad.sensorial}
+            `+ `\n **FÍSICA:** ${objMatrimonio[i].conyuge[i].discapacidad.fisica}
+            `+ `\n **FECHA DE VENCIMIENTO:** ${objMatrimonio[i].conyuge[i].discapacidad.fechaVenc}`
 
             rutConyuge = `${objMatrimonio[i].conyuge[i].rut}`;
         }
@@ -202,10 +171,38 @@ function RCivilInfoGeneral(builder) {
             ]);
     }
 
-    /*
+    
     function createNucleoHeroCard(session, rutCompleto,objNucleo) {
+        var datosNucleo = '';
+
+        datosNucleo = `${datosNucleo} 
+            `+ `\n **NOMBRE:** ${objNucleo.nombres} ${objNucleo.apPaterno} ${objNucleo.apMaterno}
+            `+ `\n **FECHA DE NACIMIENTO:** ${objNucleo.fechaNaci}
+            `+ `\n **ESTADO CIVIL:** ${objNucleo.estadoCivil}
+            `+ `\n **FECHA DE DEFUNCIÓN:** ${objNucleo.fechaDefun}
+            `+ `\n **GÉNERO:** ${objNucleo.sexo}     
+            `+ `
+
+            `+ `**INFORMACIÓN DISCAPACIDAD**
+            `+ `\n **MENTAL:** ${objNucleo.discapacidad.mental}
+            `+ `\n **SENSORIAL:** ${objNucleo.discapacidad.sensorial}
+            `+ `\n **FÍSICA:** ${objNucleo.discapacidad.fisica}
+            `+ `\n **FECHA DE VENCIMIENTO:** ${objNucleo.discapacidad.fechaVenc}  
+            `+ `
+
+
+            `
+
+    console.log(datosNucleo);
+    return new builder.HeroCard(session)
+        .title('Registro Civil - Núcleo Familiar')
+        .subtitle('Rut: ' + rutCompleto)
+        .text(datosNucleo)
+        .images([
+            builder.CardImage.create(session, process.env.BANNER_GOB, )
+        ]);
     }
-    */
+    
 
 }
 exports.RCivilInfoGeneral = RCivilInfoGeneral;
