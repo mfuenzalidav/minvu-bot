@@ -76,7 +76,7 @@ bot.dialog('/', intents);
 
 bot.dialog('Saludo', [
     function (session, args, next) {
-        session.endDialog('Hola. ¿en qué puedo ayudarle?')
+        session.endDialog('Encantado, soy DinBot 🤖. ¿en qué puedo ayudarle?')
     },
 ]);
 bot.dialog('Ayuda', [
@@ -86,6 +86,6 @@ bot.dialog('Ayuda', [
 ]);
 bot.dialog('Despedida', [
     function (session, args, next) {
-        session.endConversation('Hasta luego, !que tenga un buen día!',session.message.text);
+        session.endConversation('Ha sido un placer ayudarle. ¡Que tenga un buen día! 👋👾',session.message.text);
     },
 ]);
