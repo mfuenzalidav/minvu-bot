@@ -7,7 +7,7 @@ function RSHGrupoFamiliar(builder) {
 
     this.dialogId = 'ObtenerGrupoFamiliarRsh'
     this.dialog = [
-        (session) => {
+        (session, args,next) => {
             const regex = /(0?[1-9]{1,2})(((\.\d{3}){2,}\-)|((\d{3}){2,}\-)|((\d{3}){2,}))([\dkK])/g;
             var groups = (new RegExp(regex)).exec(session.message.text)
             var RutValido = groups ? new Rut(groups[0]).validate() : false;
@@ -35,7 +35,7 @@ function RSHGrupoFamiliar(builder) {
                     console.log(err)
                 }
                 else {
-                    client['ObtenerRegistroSocialHogares' + 'Async'](args).then((result) => {
+                    client['ObtenerRegistroSocialHogaresAsync'](args).then((result) => {
                         if (!result.ObtenerRegistroSocialHogaresResult.RESULTADO ||
                             !result.ObtenerRegistroSocialHogaresResult.RESPUESTA ||
                             !result.ObtenerRegistroSocialHogaresResult.RESPUESTA.salidaRSH) {
@@ -81,17 +81,15 @@ function RSHGrupoFamiliar(builder) {
         var nombrecompleto = '';
         for (var i = 0; i < objPersona.Persona.length; i++) {
             nombrecompleto = `${nombrecompleto} 
-`+ `${i + 1}.- ${objPersona.Persona[i].Rut}-${objPersona.Persona[i].Dv} ${objPersona.Persona[i].Nombres} ${objPersona.Persona[i].Ape1} ${objPersona.Persona[i].Ape2} `
+    `+ `${i + 1}.- ${objPersona.Persona[i].Rut}-${objPersona.Persona[i].Dv} ${objPersona.Persona[i].Nombres} ${objPersona.Persona[i].Ape1} ${objPersona.Persona[i].Ape2}`
         }
 
         console.log(nombrecompleto);
         return new builder.HeroCard(session)
             .title('RSH.- Grupo Familiar')
-            .subtitle(rutCompleto)
+            .subtitle('Rut: ' +rutCompleto)
             .text(nombrecompleto)
-            .images([
-                builder.CardImage.create(session, process.env.BANNER_GOB)
-            ]);
+            .images([builder.CardImage.create(session, process.env.BANNER_GOB)]);
     }
 }
 
