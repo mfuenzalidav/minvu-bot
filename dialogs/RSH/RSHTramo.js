@@ -82,14 +82,13 @@ function RSHTramo(builder) {
     }]
 
     function createHeroCard(session, rutCompleto, objetoRsh) {
-
-        var datosPersona = '';
-        datosPersona = `NOMBRE: ${objetoRsh.Nombres} ${objetoRsh.ApellidoPaterno} ${objetoRsh.ApellidoMaterno}
-        \n\n TRAMO: ${objetoRsh.Tramo}`
-
         
-        console.log(datosPersona);
-
+        var datosPersona = '';
+        datosPersona = `${datosPersona} 
+        `+ `\n **NOMBRE:** ${objetoRsh.Nombres} ${objetoRsh.ApellidoPaterno} ${objetoRsh.ApellidoMaterno}
+        `+ `\n **TRAMO:** ${objetoRsh.Tramo}`
+        
+        //console.log(datosPersona);
         return new builder.HeroCard(session)
             .title('RSH.- Tramo')
             .subtitle('Rut: ' +rutCompleto)

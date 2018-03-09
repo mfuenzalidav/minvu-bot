@@ -66,25 +66,16 @@ function RSHGrupoFamiliar(builder) {
             session.endDialog()
         }
     ]
-
-    /*
-    function getFull(item, index) {
-        var full = ['Rut: ' + item.Rut, item.Dv, 'Nombre: ' + item.Nombres, item.Ape1, item.Ape2].join(" ");
-        return full;
-    }
-    objeto.Persona.map(getFull);
-    */
-
-
+    
     function createHeroCard(session, rutCompleto, objPersona) {
 
         var nombrecompleto = '';
         for (var i = 0; i < objPersona.Persona.length; i++) {
-            nombrecompleto = `${nombrecompleto} 
-    `+ `${i + 1}.- ${objPersona.Persona[i].Rut}-${objPersona.Persona[i].Dv} ${objPersona.Persona[i].Nombres} ${objPersona.Persona[i].Ape1} ${objPersona.Persona[i].Ape2}`
+            nombrecompleto = `${nombrecompleto}
+            `+ `\n ${i + 1}.- ${objPersona.Persona[i].Rut}-${objPersona.Persona[i].Dv}`+ ` ${objPersona.Persona[i].Nombres} ${objPersona.Persona[i].Ape1} ${objPersona.Persona[i].Ape2}`
         }
 
-        console.log(nombrecompleto);
+        //console.log(nombrecompleto);
         return new builder.HeroCard(session)
             .title('RSH.- Grupo Familiar')
             .subtitle('Rut: ' +rutCompleto)
