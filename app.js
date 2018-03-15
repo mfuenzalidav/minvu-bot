@@ -47,11 +47,11 @@ var intents = new builder.IntentDialog({ recognizers: [recognizer] })
     session.beginDialog('Ayuda');
 })
 
-/*
+
 .matches('Cancelar', function(session){
     //session.beginDialog('Cancelar');
 })
-*/
+
 
 .matches('Despedida', function(session){
     session.beginDialog('Despedida');
