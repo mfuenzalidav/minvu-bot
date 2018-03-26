@@ -8,14 +8,14 @@ var dinbot              = require('./extensions/dinbot')
 const dotenv            = require('dotenv').config({ path: '.env' });
 
 var server = restify.createServer();
-server.listen(process.env.SERVER_PORT, () => {
+server.listen(process.env.port || process.env.PORT || 3978, () => {
    console.log('%s listening to %s', server.name, server.url); 
 });
   
 var connector = new builder.ChatConnector({
-    appId: process.env.BOT_APP_ID,
-    appPassword: process.env.BOT_APP_PASSWORD,
-    openIdMetadata: process.env.BOT_OPEN_ID_METADATA 
+    appId: process.env.MicrosoftAppId,
+    appPassword: process.env.MicrosoftAppPassword,
+    openIdMetadata: process.env.BotOpenIdMetadata 
 });
 
 server.post('/api/messages', connector.listen());
@@ -25,10 +25,22 @@ var azureTableClient = new botbuilder_azure.AzureTableClient(tableName, process.
 var tableStorage = new botbuilder_azure.AzureBotStorage({ gzipData: false }, azureTableClient);
 
 var bot = new builder.UniversalBot(connector);
+//Para uso propio de AZURE
+//bot.set('storage', tableStorage);
 
-var luisAppId = process.env.LUIS_APP_ID;
-var luisAPIKey = process.env.LUIS_API_KEY;
-var luisAPIHostName = process.env.LUIS_API_HOSTNAME;
+bot.use({
+    botbuilder: function (session, next) {
+         session.error = function (err) {
+             console.log('--------------ERROR---------------')
+             console.log(err)
+         };
+         next(); 
+    }
+});
+
+var luisAppId = process.env.LuisAppId;
+var luisAPIKey = process.env.LuisAPIKey;
+var luisAPIHostName = process.env.LuisAPIHostName || 'westus.api.cognitive.microsoft.com';
 
 const LuisModelUrl = 'https://' + luisAPIHostName + '/luis/v1/application?id=' + luisAppId + '&subscription-key=' + luisAPIKey;
 
@@ -67,6 +79,15 @@ var intents = new builder.IntentDialog({ recognizers: [recognizer] })
 })
 .matches('SPS.EstadoPago', function(session){
     dinbot.beginDialog('SPSEstadoPago',session);
+})
+.matches('Aranda.Incidente', function(session){
+    dinbot.beginDialog('ArandaIncidente',session);
+})
+.matches('Aranda.Requerimiento', function(session){
+    dinbot.beginDialog('ArandaRequerimiento',session);
+})
+.matches('Juegos.Ahorcado',function(session){
+    dinbot.beginDialog('JuegosAhorcado',session);    
 })
 .onDefault((session) => {
     session.send('lo lamento, no entiendo lo que has dicho \'%s\'.', session.message.text);

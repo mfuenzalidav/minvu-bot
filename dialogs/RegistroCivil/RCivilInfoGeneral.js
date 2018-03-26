@@ -133,7 +133,7 @@ function RCivilInfoGeneral(builder) {
             .subtitle('Rut: ' + rutCompleto)
             .text(datosPersona)
             .images([
-                builder.CardImage.create(session, process.env.BANNER_GOB, )
+                builder.CardImage.create(session, process.env.BANNER_GOB )
             ]);
     }
 
@@ -167,7 +167,7 @@ function RCivilInfoGeneral(builder) {
             .subtitle('Rut: ' + rutConyuge)
             .text(datosConyuge)
             .images([
-                builder.CardImage.create(session, process.env.BANNER_GOB, )
+                builder.CardImage.create(session, process.env.BANNER_GOB)
             ]);
     }
 
@@ -199,7 +199,7 @@ function RCivilInfoGeneral(builder) {
         .subtitle('Rut: ' + rutCompleto)
         .text(datosNucleo)
         .images([
-            builder.CardImage.create(session, process.env.BANNER_GOB, )
+            builder.CardImage.create(session, process.env.BANNER_GOB)
         ]);
     }
     

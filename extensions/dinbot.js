@@ -10,7 +10,7 @@ var Dinbot = {
         this.recognizer = recognizer
     },
     setDialogs: function () {
-        dialogs.getDialogs(this.builder).forEach(element => {
+        dialogs.getDialogs(this.builder, this.bot).forEach(element => {
             this.bot.dialog(element.dialogId, element.dialog)
         });
     },
