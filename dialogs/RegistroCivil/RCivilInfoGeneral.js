@@ -119,6 +119,7 @@ function getCardsAttachments(session, rutCompleto, objRegistroCivil) {
 
 function createPersonaHeroCard(session, rutCompleto, objPersona) {
 
+
     var datosPersona = '';
     datosPersona = `${datosPersona} 
         `+ `\n **NOMBRE:** ${objPersona.nombres} ${objPersona.apPaterno} ${objPersona.apMaterno}
