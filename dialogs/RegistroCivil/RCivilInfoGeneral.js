@@ -43,6 +43,7 @@ function RCivilInfoGeneral(builder) {
                                                + '</ope_prt_regcivil_info_persona>"' };
 
 
+
         session.send('Me pediste información del siguiente rut: ' + rut.getNiceRut() + ' 📍');
         onWaitGif(session);
 
@@ -53,7 +54,7 @@ function RCivilInfoGeneral(builder) {
                 console.log(err);
             }
             else {
-                client['ope_prt_regcivil_info_persona' + 'Async'](args).then((result) => {
+                client['ope_prt_regcivil_info_personaAsync'](args).then((result) => {
                     console.log(result);
                     if (!result.ICE.RESULTADO ||
                         !result.ICE.minvuRutData ||
@@ -66,13 +67,14 @@ function RCivilInfoGeneral(builder) {
                                 const objRegistroCivil = result.ICE.minvuRutData
                                 const rutCompleto = rut.getNiceRut()
 
-                                var cards = getCardsAttachments(session,rutCompleto, objRegistroCivil);
 
-                                // create reply with Carousel AttachmentLayout
-                                var reply = new builder.Message(session)
+                            var cards = getCardsAttachments(session, rutCompleto, objRegistroCivil);
+
+                            // create reply with Carousel AttachmentLayout
+                            var reply = new builder.Message(session)
                                 .attachmentLayout(builder.AttachmentLayout.carousel)
                                 .attachments(cards);
-
+                          
                                 session.send(reply);
                                 session.beginDialog('MenuAyuda','MenuFinal'); 
                             }
@@ -86,6 +88,7 @@ function RCivilInfoGeneral(builder) {
                             session.send('Intente consultar la información del Registro Civil, pero no reconozco la información que me entrega 😟');
                             session.beginDialog('MenuAyuda','MenuFinal');  
                         }
+
                     }
                 }).catch((err) => {
                     console.log(err)
@@ -115,6 +118,7 @@ function getCardsAttachments(session, rutCompleto, objRegistroCivil) {
 
 
 function createPersonaHeroCard(session, rutCompleto, objPersona) {
+
 
     var datosPersona = '';
     datosPersona = `${datosPersona} 
@@ -167,10 +171,11 @@ function createMatrimonioHeroCard(session, objMatrimonio) {
         rutConyuge = `${objMatrimonio[i].conyuge[i].rut}`;
     }
 
+
     return new builder.HeroCard(session)
-        .title('Registro Civil - Datos Cónyuge')
-        .subtitle('Rut: ' + rutConyuge)
-        .text(datosConyuge)
+        .title('Registro Civil - Núcleo Familiar')
+        .subtitle('Rut: ' + rutCompleto)
+        .text(datosNucleo)
         .images([
             builder.CardImage.create(session, process.env.BANNER_GOB)
         ]);
@@ -206,7 +211,6 @@ return new builder.HeroCard(session)
         builder.CardImage.create(session, process.env.BANNER_GOB)
     ]);
 }
-
 function onWaitGif(session) {
         var msg = new builder.Message(session).addAttachment(createAnimationCard(session));
         session.send(msg);

@@ -71,14 +71,17 @@ function Ayuda(builder) {
             }
             case 'SPS - Estado de Pago':
             {
+                session.beginDialog('SPSEstadoPago');
                 break;
             }     
             case 'Aranda - Consulta de Requerimiento':
             {
+                session.beginDialog('ArandaRequerimiento');
                 break;
             }   
             case 'Aranda - Consulta de Incidente':
             {
+                session.beginDialog('ArandaIncidente');
                 break;
             }
         }
