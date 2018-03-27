@@ -62,6 +62,9 @@ var intents = new builder.IntentDialog({ recognizers: [recognizer] })
 .matches('RegistroCivil.InformacionGeneral', function(session){
     dinbot.beginDialog('RegistroCivilInfoGeneral');
 })
+.matches('SPS.EstadoPago', function(session){
+    dinbot.beginDialog('SPSEstadoPago',session);
+})
 .onDefault((session) => {
     session.send('lo lamento, no entiendo lo que has dicho \'%s\'.', session.message.text);
 });
