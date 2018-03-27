@@ -41,18 +41,15 @@ dinbot.setDialogs()
 var intents = new builder.IntentDialog({ recognizers: [recognizer] })
 
 .matches('Saludo', function(session){
-    session.beginDialog('Saludo');
+    //session.beginDialog('Saludo');
+    session.beginDialog('MenuAyuda','MenuInicio');
 })
 .matches('Ayuda', function(session){
-    session.beginDialog('Ayuda');
+    session.beginDialog('MenuAyuda','MenuInicio');
 })
-
-
 .matches('Cancelar', function(session){
     //session.beginDialog('Cancelar');
 })
-
-
 .matches('Despedida', function(session){
     session.beginDialog('Despedida');
 })
@@ -63,7 +60,7 @@ var intents = new builder.IntentDialog({ recognizers: [recognizer] })
     dinbot.beginDialog('ObtenerGrupoFamiliarRsh', session);
 })
 .matches('RegistroCivil.InformacionGeneral', function(session){
-    session.beginDialog('RegistroCivilInfoGeneral');
+    dinbot.beginDialog('RegistroCivilInfoGeneral');
 })
 .onDefault((session) => {
     session.send('lo lamento, no entiendo lo que has dicho \'%s\'.', session.message.text);
@@ -76,11 +73,12 @@ bot.dialog('Saludo', [
         session.endDialog('Encantado, soy DinBot 🤖. ¿en qué puedo ayudarle?')
     },
 ]);
+/*
 bot.dialog('Ayuda', [
     function (session, args, next) {
         session.endDialog('Ha consultado por ayuda, por ahora solo puedo obtener la información del Tramo y el Grupo Familiar en RSH.\n!Pronto tendré más opciones!.');
     },
-]);
+]);*/
 bot.dialog('Despedida', [
     function (session, args, next) {
         session.endConversation('Ha sido un placer ayudarle. ¡Que tenga un buen día! 👋👾',session.message.text);

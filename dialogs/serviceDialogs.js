@@ -7,3 +7,6 @@ exports.RSHGrupoFamiliar = RSH_grupo_familiar.RSHGrupoFamiliar
 
 var RCivilInfoGeneral_1 = require('./RegistroCivil/RCivilInfoGeneral')
 exports.RCivilInfoGeneral = RCivilInfoGeneral_1.RCivilInfoGeneral
+
+var Ayuda_1 = require('./Ayuda/Ayuda')
+exports.Ayuda = Ayuda_1.Ayuda
