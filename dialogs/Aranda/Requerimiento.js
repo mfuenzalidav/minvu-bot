@@ -65,15 +65,19 @@ function ArandaRequerimiento(builder) {
         axios.get(url)
             .then(function (response) {
                 if (response.status == 200) {
+                    if(response.data){
                     var card = createHeroCard(session, codigo, response.data)
 
                     var reply = new builder.Message(session).addAttachment(card)
                     session.send('Esta la información del requerimiento:')
                     session.send(reply)
-
+                    }
+                    else{
+                        session.send('No existe el requerimiento')                        
+                    }
                 }
                 else
-                    session.send('No obtuve información del requerimiento')
+                    session.send('No obtuve información al consultar el requerimiento')
             })
             .catch(function (error) {
                 console.log(error);
