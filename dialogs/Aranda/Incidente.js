@@ -65,16 +65,19 @@ function ArandaIncidente(builder) {
         axios.get(url)
             .then(function (response) {
                 if (response.status == 200) {
-
+                    if(response.data){
                     var card = createHeroCard(session, codigo, response.data)
 
                     var reply = new builder.Message(session).addAttachment(card)
                     session.send('Esta la información del incidente:')
                     session.send(reply)
-
+                    }
+                    else{
+                        session.send('No existe el incidente')                        
+                    }
                 }
                 else
-                    session.send('No obtuve información del incidente')
+                    session.send('No obtuve información al consultar el incidente')
             })
             .catch(function (error) {
                 console.log(error);

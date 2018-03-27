@@ -1,4 +1,3 @@
-
 var restify             = require('restify');
 var builder             = require('botbuilder');
 var botbuilder_azure    = require("botbuilder-azure");
@@ -34,8 +33,19 @@ bot.use({
              console.log('--------------ERROR---------------')
              console.log(err)
          };
-         next(); 
-    }
+         next();         
+    },
+    receive: function (event, next) {
+        //console.log('--------------receive---------------')
+        //console.log(event)
+        next();
+    },
+    send: function (event, next) {
+        //console.log('--------------send---------------')
+        //console.log(event)
+        next();
+    },
+    
 });
 
 var luisAppId = process.env.LuisAppId;
@@ -72,7 +82,7 @@ var intents = new builder.IntentDialog({ recognizers: [recognizer] })
     dinbot.beginDialog('ObtenerGrupoFamiliarRsh', session);
 })
 .matches('RegistroCivil.InformacionGeneral', function(session){
-    dinbot.beginDialog('RegistroCivilInfoGeneral');
+    dinbot.beginDialog('RegistroCivilInfoGeneral',session);
 })
 .matches('SPS.EstadoPago', function(session){
     dinbot.beginDialog('SPSEstadoPago',session);
@@ -108,3 +118,29 @@ bot.dialog('Despedida', [
         session.endConversation('Ha sido un placer ayudarle. ¡Que tenga un buen día! 👋👾',session.message.text);
     },
 ]);
+
+bot.on('conversationUpdate', function (message) {
+    /*
+    if (message.membersAdded && message.membersAdded.length > 0) {
+        // Say hello
+        var isGroup = message.address.conversation.isGroup;
+        var txt = isGroup ? "Hello everyone!" : "Hello...";
+        var reply = new builder.Message()
+                .address(message.address)
+                .text(txt);
+        bot.send(reply);
+    } else if (message.membersRemoved) {
+        // See if bot was removed
+        var botId = message.address.bot.id;
+        for (var i = 0; i < message.membersRemoved.length; i++) {
+            if (message.membersRemoved[i].id === botId) {
+                // Say goodbye
+                var reply = new builder.Message()
+                        .address(message.address)
+                        .text("Goodbye");
+                bot.send(reply);
+                break;
+            }
+        }
+    }*/
+});
