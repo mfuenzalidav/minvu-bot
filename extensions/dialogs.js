@@ -6,15 +6,19 @@ var Dialogs = {
         var SPSEstadoPago = new dialogs.SPSEstadoPago(builder);
         var RSHGrupoFamiliar = new dialogs.RSHGrupoFamiliar(builder);
         var RCivilInfoGeneral = new dialogs.RCivilInfoGeneral(builder);
+
+        var Ayuda = new dialogs.Ayuda(builder);
+
         var ArandaIncidente = new dialogs.ArandaIncidente(builder);
         var ArandaRequerimiento = new dialogs.ArandaRequerimiento(builder);
         var JuegoAhorcado = new dialogs.JuegoAhorcado(builder, bot)
-        
+
 
         return [
             { dialogId: RSHTramo.dialogId, dialog: RSHTramo.dialog },                   //ObtenerTramoRsh
             { dialogId: RSHGrupoFamiliar.dialogId, dialog: RSHGrupoFamiliar.dialog },   //ObtenerGrupoFamiliarRsh
             { dialogId: RCivilInfoGeneral.dialogId, dialog: RCivilInfoGeneral.dialog }, //RegistroCivilInfoGeneral
+            { dialogId: Ayuda.dialogId, dialog: Ayuda.dialog },                         //MenuAyuda
             { dialogId: SPSEstadoPago.dialogId, dialog: SPSEstadoPago.dialog },         //SPSEstadoPago
             { dialogId: ArandaIncidente.dialogId, dialog: ArandaIncidente.dialog },         //ArandaIncidente
             { dialogId: ArandaRequerimiento.dialogId, dialog: ArandaRequerimiento.dialog },         //ArandaRequerimiento
