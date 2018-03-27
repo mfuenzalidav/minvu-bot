@@ -28,7 +28,10 @@ function RSHTramo(builder) {
     },
     (session, results) => {
         if (results === 'cancel')
-        session.endDialog('Has cancelado la consulta del tramo en RSH 😭. ¡Vuelve Pronto!');
+        {            
+           session.endDialog('Has cancelado la consulta del tramo en RSH 😭. ¡Vuelve Pronto!');
+           session.beginDialog('MenuAyuda');
+        }
 
         var rut = new Rut(results.response);
         var digitos = rut.rut;
@@ -36,12 +39,14 @@ function RSHTramo(builder) {
 
         var args = { entradaRSH: { Rut: digitos, Dv: verificador, Periodo: '-1', UsSist: '1' } };
 
-        session.send('Me pediste el siguiente rut: ' + rut.getNiceRut() + ' 📍');
+        session.send('Me pediste el tramo RSH del siguiente rut: ' + rut.getNiceRut() + ' 📍');
+        onWaitGif(session);
 
         soap.createClient('http://wsminvuni.test.minvu.cl/WSICEMds/RegistroSocialHogares.svc?singleWsdl', function (err, client) {
             if (err) {
                 session.send('¡Lo lamento!, 😭, hubo un error al consultar el servicio de RSH 😅');
                 console.log(err)
+                session.beginDialog('MenuAyuda','MenuFinal'); 
             }
             else {
                 client['ObtenerRegistroSocialHogares' + 'Async'](args).then((result) => {
@@ -49,6 +54,7 @@ function RSHTramo(builder) {
                         !result.ObtenerRegistroSocialHogaresResult.RESPUESTA ||
                         !result.ObtenerRegistroSocialHogaresResult.RESPUESTA.salidaRSH) {
                         session.send('¡Lo lamento!, 😭, no pude obtener datos del servicio de RSH 😅');
+                        session.beginDialog('MenuAyuda','MenuFinal'); 
                     }
                     else {
                         if (result.ObtenerRegistroSocialHogaresResult.RESPUESTA.salidaRSH.Estado === 1){
@@ -58,16 +64,23 @@ function RSHTramo(builder) {
                             var card = createHeroCard(session, rutCompleto, objetoRsh);
                             var msg = new builder.Message(session).addAttachment(card);
                             session.send(msg);
-
+                            session.beginDialog('MenuAyuda','MenuFinal'); 
                         }
                         else if (result.ObtenerRegistroSocialHogaresResult.RESPUESTA.salidaRSH.Estado === 2)
-                            session.send('¡Pucha! el tramo del rut consultado' + rut.getNiceRut() + ' no tiene registros en RSH 😢');
+                        {
+                            session.send('¡Pucha! el tramo del rut consultado' + rut.getNiceRut() + ' no tiene registros en RSH 😱');  
+                            session.beginDialog('MenuAyuda','MenuFinal'); 
+                        }
                         else
-                            session.send('Intente consultar el tramo en RSH pero no reconozco la información que me entrega 😟');
+                        {
+                            session.send('Intente consultar el tramo en RSH pero no reconozco la información que me entrega 😟');     
+                            session.beginDialog('MenuAyuda','MenuFinal');       
+                        }
                     }
                 }).catch((err) => {
                     console.log(err)
-                    session.send('¡Lo lamento!, 😭, hubo un error al consultar el servicio de RSH 😅');
+                    session.send('¡Lo lamento!, 😭, hubo un error al consultar el servicio de RSH 😅'); 
+                    session.beginDialog('MenuAyuda','MenuFinal'); 
                 });
             }
         })
@@ -86,6 +99,22 @@ function RSHTramo(builder) {
             .subtitle('Rut: ' +rutCompleto)
             .text(datosPersona)
             .images([builder.CardImage.create(session, process.env.BANNER_GOB)]);
+    }
+
+    function onWaitGif(session) {
+        var msg = new builder.Message(session).addAttachment(createAnimationCard(session));
+        session.send(msg);
+    }
+
+    function createAnimationCard(session) {
+        return new builder.AnimationCard(session)
+            .title('Dinbot Trabajando 😁')
+            .subtitle('Estoy buscando la información solicitada 😅')
+            .text('Puedes realizar otras consultas mientras esperas, te enviaré la información cuando la encuentre 🤓')
+            .media([{
+                profile: 'gif',
+                url: 'https://media3.giphy.com/media/tczJoRU7XwBS8/giphy.gif'
+            }])
     }
 
 }
