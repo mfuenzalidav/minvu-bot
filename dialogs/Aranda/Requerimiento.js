@@ -40,8 +40,10 @@ function ArandaRequerimiento(builder) {
     (session, results, next) => {
 
         if (results === 'cancel')
-            session.endDialog('Cancelaste la consulta del requerimiento 😭. ¡Vuelve Pronto!');
-
+        {
+            session.endDialog('Cancelaste la consulta del requerimiento 😭.');
+            session.beginDialog('MenuAyuda','MenuFinal')
+        }
         else {
             var codigos = results.response;
             if (codigos.length > 1) {
@@ -71,17 +73,23 @@ function ArandaRequerimiento(builder) {
                     var reply = new builder.Message(session).addAttachment(card)
                     session.send('Esta la información del requerimiento:')
                     session.send(reply)
+                    session.beginDialog('MenuAyuda','MenuFinal')
                     }
                     else{
-                        session.send('No existe el requerimiento')                        
+                        session.send('No existe el requerimiento')  
+                        session.beginDialog('MenuAyuda','MenuFinal')                      
                     }
                 }
                 else
+                {
                     session.send('No obtuve información al consultar el requerimiento')
+                    session.beginDialog('MenuAyuda','MenuFinal')
+                }
             })
             .catch(function (error) {
                 console.log(error);
                 session.send('Tuve un error al consultar el requerimiento, intenta nuevamente más tarde')
+                session.beginDialog('MenuAyuda','MenuFinal')
 
             });
 
