@@ -222,10 +222,12 @@ function onWaitGif(session) {
             .title('Dinbot Trabajando 😁')
             .subtitle('Estoy buscando los datos que necesita, ¿Me esperarías un ratito? 😇')
             .text('Puedes realizar otras consultas mientras esperas, te enviaré la información cuando la encuentre 🤓')
+            /*
             .media([{
                 profile: 'gif',
                 url: 'https://media3.giphy.com/media/l0MYudxO2MHJDTbVK/giphy.gif'                
             }])
+            */
     }    
 }
 exports.RCivilInfoGeneral = RCivilInfoGeneral;
