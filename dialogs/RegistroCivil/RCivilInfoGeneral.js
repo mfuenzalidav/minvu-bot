@@ -104,7 +104,7 @@ function getCardsAttachments(session, rutCompleto, objRegistroCivil) {
     var array = new Array();
     array.push(createPersonaHeroCard(session, rutCompleto, objRegistroCivil.persona))
     if (objRegistroCivil.matrimonio)
-        array.push(createMatrimonioHeroCard(session, objRegistroCivil.matrimonio))    
+        array.push(createMatrimonioHeroCard(session, rutCompleto,objRegistroCivil.matrimonio))    
 
     if (objRegistroCivil.hijo)
     {
@@ -118,6 +118,7 @@ function getCardsAttachments(session, rutCompleto, objRegistroCivil) {
 
 
 function createPersonaHeroCard(session, rutCompleto, objPersona) {
+
 
     var datosPersona = '';
     datosPersona = `${datosPersona} 
@@ -146,7 +147,7 @@ function createPersonaHeroCard(session, rutCompleto, objPersona) {
         ]);
 }
 
-function createMatrimonioHeroCard(session, objMatrimonio) {
+function createMatrimonioHeroCard(session,rutCompleto, objMatrimonio) {
 
     var datosConyuge = '';
     var rutConyuge = '';
@@ -172,9 +173,9 @@ function createMatrimonioHeroCard(session, objMatrimonio) {
 
 
     return new builder.HeroCard(session)
-        .title('Registro Civil - Núcleo Familiar')
+        .title('Registro Civil - Información Cónyuge')
         .subtitle('Rut: ' + rutCompleto)
-        .text(datosNucleo)
+        .text(datosConyuge)
         .images([
             builder.CardImage.create(session, process.env.BANNER_GOB)
         ]);
@@ -210,6 +211,7 @@ return new builder.HeroCard(session)
         builder.CardImage.create(session, process.env.BANNER_GOB)
     ]);
 }
+
 function onWaitGif(session) {
         var msg = new builder.Message(session).addAttachment(createAnimationCard(session));
         session.send(msg);
@@ -220,10 +222,12 @@ function onWaitGif(session) {
             .title('Dinbot Trabajando 😁')
             .subtitle('Estoy buscando los datos que necesita, ¿Me esperarías un ratito? 😇')
             .text('Puedes realizar otras consultas mientras esperas, te enviaré la información cuando la encuentre 🤓')
+            /*
             .media([{
                 profile: 'gif',
                 url: 'https://media3.giphy.com/media/l0MYudxO2MHJDTbVK/giphy.gif'                
             }])
+            */
     }    
 }
 exports.RCivilInfoGeneral = RCivilInfoGeneral;

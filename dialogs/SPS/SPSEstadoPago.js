@@ -23,7 +23,7 @@ function SPSEstadoPago(builder) {
     },
     (session, results) => {
         if (results === 'cancel')
-            session.endDialog('Ha cancelado la consulta del tramo en RSH');
+            session.endDialog('Ha cancelado la consulta del estado de pago en los sistemas de Pago de Subsidio');
 
         var rut = new Rut(results.response)
         var digitos = rut.rut
