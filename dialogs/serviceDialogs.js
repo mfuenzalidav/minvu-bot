@@ -21,3 +21,6 @@ exports.ArandaRequerimiento = ArandaRequerimiento_1.ArandaRequerimiento
 
 var JuegoAhorcado_1 = require('./Juegos/Ahorcado')
 exports.JuegoAhorcado = JuegoAhorcado_1.Ahorcado
+
+var DS49EstadoPostulacion_1 = require('./DS49/EstadoPostulacion')
+exports.DS49EstadoPostulacion = DS49EstadoPostulacion_1.DS49EstadoPostulacion
