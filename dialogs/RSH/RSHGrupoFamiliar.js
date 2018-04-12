@@ -102,10 +102,12 @@ function RSHGrupoFamiliar(builder) {
             .title('Dinbot Trabajando 😁')
             .subtitle('Estoy buscando los datos que necesita, favor espere 😅')
             .text('Puedes realizar otras consultas mientras esperas, te enviaré la información cuando la encuentre 🤓')
+            /*
             .media([{
                 profile: 'gif',
                 url: 'https://media0.giphy.com/media/mIZ9rPeMKefm0/giphy.gif'
             }])
+            */
     }
 }
 

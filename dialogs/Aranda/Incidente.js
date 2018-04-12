@@ -40,8 +40,10 @@ function ArandaIncidente(builder) {
     (session, results, next) => {
 
         if (results === 'cancel')
-            session.endDialog('Has cancelado la consulta del tramo en RSH 😭. ¡Vuelve Pronto!');
-
+        {
+            session.endDialog('Has cancelado la consulta de Incidente Aranda 😭.');
+            session.beginDialog('MenuAyuda','MenuFinal')
+        }
         else {
             var codigos = results.response;
             if (codigos.length > 1) {
@@ -71,17 +73,23 @@ function ArandaIncidente(builder) {
                     var reply = new builder.Message(session).addAttachment(card)
                     session.send('Esta la información del incidente:')
                     session.send(reply)
+                    session.beginDialog('MenuAyuda','MenuFinal')      
                     }
                     else{
-                        session.send('No existe el incidente')                        
+                        session.send('No existe el incidente')       
+                        session.beginDialog('MenuAyuda','MenuFinal')                     
                     }
                 }
                 else
+                {
                     session.send('No obtuve información al consultar el incidente')
+                    session.beginDialog('MenuAyuda','MenuFinal')
+                }
             })
             .catch(function (error) {
                 console.log(error);
                 session.send('Tuve un error al consultar el incidente, intenta nuevamente más tarde')
+                session.beginDialog('MenuAyuda','MenuFinal')
 
             });
 
