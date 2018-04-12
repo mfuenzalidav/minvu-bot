@@ -24,3 +24,6 @@ exports.JuegoAhorcado = JuegoAhorcado_1.Ahorcado
 
 var DS49EstadoPostulacion_1 = require('./DS49/EstadoPostulacion')
 exports.DS49EstadoPostulacion = DS49EstadoPostulacion_1.DS49EstadoPostulacion
+
+var DS49EstadoProyecto_1 = require('./DS49/EstadoProyecto')
+exports.DS49EstadoProyecto = DS49EstadoProyecto_1.DS49EstadoProyecto

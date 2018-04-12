@@ -99,6 +99,9 @@ var intents = new builder.IntentDialog({ recognizers: [recognizer] })
 .matches('DS49.EstadoPostulacion',function(session){
     dinbot.beginDialog('DS49EstadoPostulacion',session);    
 })
+.matches('DS49.EstadoProyecto',function(session){
+    dinbot.beginDialog('DS49EstadoProyecto',session);    
+})
 .onDefault((session) => {
     session.send('lo lamento, no entiendo lo que has dicho \'%s\'.', session.message.text);
 });
