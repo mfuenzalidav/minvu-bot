@@ -13,6 +13,7 @@ var Dialogs = {
         var ArandaRequerimiento = new dialogs.ArandaRequerimiento(builder);
         var JuegoAhorcado = new dialogs.JuegoAhorcado(builder, bot)
         var DS49EstadoPostulacion = new dialogs.DS49EstadoPostulacion(builder, bot)
+        var DS49EstadoProyecto = new dialogs.DS49EstadoProyecto(builder, bot)
 
 
         return [
@@ -25,6 +26,7 @@ var Dialogs = {
             { dialogId: ArandaRequerimiento.dialogId, dialog: ArandaRequerimiento.dialog },     //ArandaRequerimiento
             { dialogId: JuegoAhorcado.dialogId, dialog: JuegoAhorcado.dialog },                 //JuegoAhorcado
             { dialogId: DS49EstadoPostulacion.dialogId, dialog: DS49EstadoPostulacion.dialog }, //DS49EstadoPostulacion
+            { dialogId: DS49EstadoProyecto.dialogId, dialog: DS49EstadoProyecto.dialog },       //DS49EstadoProyecto
         ]
     }
 }

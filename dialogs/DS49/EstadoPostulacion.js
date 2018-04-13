@@ -39,7 +39,7 @@ function DS49EstadoPostulacion(builder) {
             // Query
             //Obtiene el PA de consumo de Rukan
             return pool.request()
-                .input('RUT', sql.Int, digitos)
+                .input('RUT', sql.VarChar, digitos)
                 .execute('RUKAN_MIGRA_USP_CON_DINBOT_ESTADO_POSTULACION_DS49')
         }).then(result => {
             //si encuentra resultado crea las tarjetas, en caso de no encontrar resultado entrega mensaje que no encuentra registros
