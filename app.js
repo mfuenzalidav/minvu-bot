@@ -12,9 +12,9 @@ server.listen(process.env.port || process.env.PORT || 3978, () => {
 });
   
 var connector = new builder.ChatConnector({
-    appId: process.env.MicrosoftAppId,
-    appPassword: process.env.MicrosoftAppPassword,
-    openIdMetadata: process.env.BotOpenIdMetadata 
+    appId: '',
+    appPassword: '',
+    openIdMetadata: '' 
 });
 
 server.post('/api/messages', connector.listen());
