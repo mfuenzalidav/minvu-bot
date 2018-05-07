@@ -7,4 +7,3 @@ PostDeployScripts/
 ApplicationInsights.config
 iisnode.yml
 web.config
-.env
