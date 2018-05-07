@@ -2,6 +2,7 @@ const sql = require('mssql')
 const util = require('util')
 const axios = require('axios')
 
+var DBRukanMigra = 'Driver={SQL Server Native Client 11.0};Server={MAAT\\Desarrollo};Database={Rukan_Migra};Uid={userrukan};Pwd={userrukan};'
 
 function DS49EstadoProyecto(builder) {
     this.dialogId = 'DS49EstadoProyecto'
@@ -56,7 +57,7 @@ function DS49EstadoProyecto(builder) {
         else
             codigo = results.response
 
-        new sql.ConnectionPool(process.env.DBRukanMigra)
+        new sql.ConnectionPool(DBRukanMigra)
         .connect().then(pool => {
             // Query
             //Obtiene el PA de consumo de Rukan

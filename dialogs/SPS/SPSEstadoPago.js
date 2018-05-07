@@ -2,6 +2,8 @@ const sql = require('mssql')
 var Rut = require('rutjs')
 const util = require('util')
 
+var DBPagoSubsidios = 'Driver={SQL Server Native Client 11.0};Server={MAAT\\Desarrollo};Database={Pago_Subsidios_Desarrollo};Uid={userpagosubsidios};Pwd={spsubsidios_2009};'
+
 function SPSEstadoPago(builder) {
     this.dialogId = 'SPSEstadoPago'
 
@@ -29,7 +31,7 @@ function SPSEstadoPago(builder) {
         var digitos = rut.rut
         var verificador = rut.checkDigit
 
-        new sql.ConnectionPool(process.env.DBPagoSubsidios)
+        new sql.ConnectionPool(DBPagoSubsidios)
             .connect().then(pool => {
                 // Query
                 //Obtiene el PA de consumo de SPS

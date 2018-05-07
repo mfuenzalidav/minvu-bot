@@ -1,6 +1,7 @@
 const sql = require('mssql')
 const axios = require('axios')
 var util = require('util')
+var BANNER_GOB = 'http://cdn.minvu.cl/NGM5.0/images/line-head-title.jpg'
 
 function ArandaRequerimiento(builder) {
     //this.builder = builder
@@ -63,7 +64,7 @@ function ArandaRequerimiento(builder) {
         else
             codigo = results.response
 
-        const url = process.env.DINBOT_API + `/Aranda/Requerimiento/${codigo}`;
+        const url = DINBOT_API + `/Aranda/Requerimiento/${codigo}`;
         axios.get(url)
             .then(function (response) {
                 if (response.status == 200) {
@@ -144,7 +145,7 @@ function ArandaRequerimiento(builder) {
             .title(`Requerimiento ${idRequerimiento}`)
             .text(datosPersona)
             .images([
-                builder.CardImage.create(session, process.env.BANNER_GOB)
+                builder.CardImage.create(session, BANNER_GOB)
             ]);
     }
 

@@ -1,6 +1,7 @@
 const soap = require('soap')
 var Rut = require('rutjs')
-
+var SOAP_RCIVIL = 'http://wsminvune.minvu.cl/Minvu.RegistroCivil/REGCIVIL_orc_datos_persona_prt_regcivil_info_persona.asmx?wsdl'
+var BANNER_GOB = 'http://cdn.minvu.cl/NGM5.0/images/line-head-title.jpg'
 
 function RCivilInfoGeneral(builder) {
     this.dialogId = 'RegistroCivilInfoGeneral'
@@ -47,7 +48,7 @@ function RCivilInfoGeneral(builder) {
         session.send('Me pediste información del siguiente rut: ' + rut.getNiceRut() + ' 📍');
         onWaitGif(session);
 
-        soap.createClient(process.env.SOAP_RCIVIL, function (err, client) {
+        soap.createClient(SOAP_RCIVIL, function (err, client) {
             if (err) {
                 session.send('¡Lo lamento! 😭, hubo un error al consultar el servicio de registro civil 😅');
                 session.beginDialog('MenuAyuda','MenuFinal'); 
@@ -143,7 +144,7 @@ function createPersonaHeroCard(session, rutCompleto, objPersona) {
         .subtitle('Rut: ' + rutCompleto)
         .text(datosPersona)
         .images([
-            builder.CardImage.create(session, process.env.BANNER_GOB)
+            builder.CardImage.create(session, BANNER_GOB)
         ]);
 }
 
@@ -177,7 +178,7 @@ function createMatrimonioHeroCard(session,rutCompleto, objMatrimonio) {
         .subtitle('Rut: ' + rutCompleto)
         .text(datosConyuge)
         .images([
-            builder.CardImage.create(session, process.env.BANNER_GOB)
+            builder.CardImage.create(session, BANNER_GOB)
         ]);
 }
 
@@ -208,7 +209,7 @@ return new builder.HeroCard(session)
     .subtitle('Rut: ' + rutCompleto)
     .text(datosNucleo)
     .images([
-        builder.CardImage.create(session, process.env.BANNER_GOB)
+        builder.CardImage.create(session, BANNER_GOB)
     ]);
 }
 

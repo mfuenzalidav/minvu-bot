@@ -1,6 +1,8 @@
 const soap  = require('soap')
 var Rut     = require('rutjs')
 
+var SOAP_RSH='http://wsminvuni.test.minvu.cl/WSICEMds/RegistroSocialHogares.svc?singleWsdl'
+var BANNER_GOB ='http://cdn.minvu.cl/NGM5.0/images/line-head-title.jpg'
 
 function RSHTramo(builder) {
     //this.builder = builder
@@ -46,7 +48,7 @@ function RSHTramo(builder) {
         session.send('Me pediste el tramo RSH del siguiente rut: ' + rut.getNiceRut() + ' 📍');
         onWaitGif(session);
 
-        soap.createClient(process.env.SOAP_RSH, function (err, client) {
+        soap.createClient(SOAP_RSH, function (err, client) {
             if (err) {
                 console.log('ERROR EN RSH TRAMO' + err)
                 session.send('¡Lo lamento!, 😭, hubo un error al consultar el servicio de RSH 😅');
@@ -104,7 +106,7 @@ function RSHTramo(builder) {
             .title('RSH.- Tramo')
             .subtitle('Rut: ' +rutCompleto)
             .text(datosPersona)
-            .images([builder.CardImage.create(session, process.env.BANNER_GOB)]);
+            .images([builder.CardImage.create(session, BANNER_GOB)]);
     }
 
     function onWaitGif(session) {
