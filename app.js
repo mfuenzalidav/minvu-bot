@@ -4,7 +4,7 @@ var botbuilder_azure    = require("botbuilder-azure");
 const soap              = require('soap')
 var Rut                 = require('rutjs')
 var dinbot              = require('./extensions/dinbot')
-const dotenv            = require('dotenv').config({ path: '.env' });
+//const dotenv            = require('dotenv').config({ path: '.env' });
 
 var server = restify.createServer();
 server.listen(process.env.port || process.env.PORT || 3978, () => {
@@ -48,9 +48,13 @@ bot.use({
     
 });
 
-var luisAppId = process.env.LuisAppId;
-var luisAPIKey = process.env.LuisAPIKey;
-var luisAPIHostName = process.env.LuisAPIHostName || 'westus.api.cognitive.microsoft.com';
+var LuisAppId='8AC8B5BC-A20F-4966-90EC-9A787674A821'
+var LuisAPIKey='5FC85F8964454BC8AE66BDFCC523C050'
+var LuisAPIHostName='WESTUS.API.COGNITIVE.MICROSOFT.COM'
+
+var luisAppId = LuisAppId;
+var luisAPIKey = LuisAPIKey;
+var luisAPIHostName = LuisAPIHostName || 'westus.api.cognitive.microsoft.com';
 
 const LuisModelUrl = 'https://' + luisAPIHostName + '/luis/v1/application?id=' + luisAppId + '&subscription-key=' + luisAPIKey;
 

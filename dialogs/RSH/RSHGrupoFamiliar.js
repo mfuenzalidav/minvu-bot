@@ -2,6 +2,9 @@
 const soap = require('soap')
 var Rut = require('rutjs')
 //var card = require('./../../cards/heroCard')
+var SOAP_RSH='http://wsminvuni.test.minvu.cl/WSICEMds/RegistroSocialHogares.svc?singleWsdl'
+
+var BANNER_GOB = 'http://cdn.minvu.cl/NGM5.0/images/line-head-title.jpg'
 
 function RSHGrupoFamiliar(builder) {
 
@@ -30,7 +33,7 @@ function RSHGrupoFamiliar(builder) {
             session.send('Ha consultado el grupo familiar del rut: ' + rut.getNiceRut() + ' 📍');
             onWaitGif(session);
 
-            soap.createClient(process.env.SOAP_RSH, function (err, client) {
+            soap.createClient(SOAP_RSH, function (err, client) {
                 if (err) {
                     session.send('Con respecto a su consulta del grupo familiar en RSH, lo lamento, tuve un error al consultar el servicio de RSH 😢');
                     console.log(err)
@@ -89,7 +92,7 @@ function RSHGrupoFamiliar(builder) {
             .title('RSH.- Grupo Familiar')
             .subtitle('Rut: ' +rutCompleto)
             .text(nombrecompleto)
-            .images([builder.CardImage.create(session, process.env.BANNER_GOB)]);
+            .images([builder.CardImage.create(session, BANNER_GOB)]);
     }
 
     function onWaitGif(session) {
