@@ -4,7 +4,7 @@ var botbuilder_azure    = require("botbuilder-azure");
 const soap              = require('soap')
 var Rut                 = require('rutjs')
 var dinbot              = require('./extensions/dinbot')
-//const dotenv            = require('dotenv').config({ path: '.env' });
+const dotenv            = require('dotenv').config({ path: '.env' });
 
 var server = restify.createServer();
 server.listen(process.env.port || process.env.PORT || 3978, () => {
