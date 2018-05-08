@@ -1,10 +1,11 @@
 const sql = require('mssql')
+const axios = require('axios')
 var Rut = require('rutjs')
 const util = require('util')
 
 
-function DS49EstadoPostulacion(builder) {
-    this.dialogId = 'DS49EstadoPostulacion'
+function EstadoPostulacion(builder) {
+    this.dialogId = 'EstadoPostulacion'
 
     this.dialog = [(session, args, next) => {
 
@@ -15,7 +16,7 @@ function DS49EstadoPostulacion(builder) {
         //en caso de obtener los grupos validos del regex en el texto se genera como rut para validar, en caso contrario no se encuentra rut.
         var RutValido = groups ? new Rut(groups[0]).validate() : false;
 
-        session.send('¡Muy bien! Vamos a realizar una consulta para verificar estados de postulacion en DS49 😁');
+        session.send('¡Muy bien! Vamos a realizar una consulta para verificar estados de postulacion 😁');
 
         if ((!groups && !RutValido) || !groups) {
             builder.Prompts.ValidarRut(session, "🤔... ¿Cuál rut vamos a consultar? 😈");
@@ -26,7 +27,7 @@ function DS49EstadoPostulacion(builder) {
     (session, results) => {
         if (results === 'cancel')
         {
-            session.endDialog('Has cancelado la consulta del estado de postulación DS49 😭. ¡Vuelve Pronto!');            
+            session.endDialog('Has cancelado la consulta del estado de postulación 😭. ¡Vuelve Pronto!');            
             session.beginDialog('MenuAyuda','MenuFinal'); 
         }
 
@@ -34,12 +35,54 @@ function DS49EstadoPostulacion(builder) {
         var digitos = rut.rut;
         var verificador = rut.checkDigit;
 
+        const url = process.env.DINBOT_API + `/EstadoPostulacion/EstadoPostulacion/${digitos}`;
+        axios.get(url)
+            .then(function (response) {
+                if (response.status == 200) {
+                    if(response.data.length > 0){
+                        //si encuentra resultado crea las tarjetas, en caso de no encontrar resultado entrega mensaje que no encuentra registros            
+                        var cards = new Array();
+                        //Manda las postulaciones encontradas para crearlos en tarjetas
+                        for (var i = 0; i < response.data.length; i++) {
+                            var item = response.data[i]
+                            //lo agrega a un array de tarjetas
+                            cards.push(createHeroCard(session, rut.getNiceRut(), item))
+                        }
+
+                        //crea un carousel con las tarjetas antes creadas
+                        var reply = new builder.Message(session)
+                            .attachmentLayout(builder.AttachmentLayout.carousel)
+                            .attachments(cards)
+
+                        session.send(`Con respecto a la consulta del estado de postulación del rut: ${rut.getNiceRut()} le puedo dar la siguiente información:`)
+                        session.send(reply)
+                        session.beginDialog('MenuAyuda','MenuFinal'); 
+                    }
+                    else{
+                        session.send(`Con respecto a su consulta del estado de postulación del rut: ${rut.getNiceRut()} No se encontró información.`)
+                        session.beginDialog('MenuAyuda','MenuFinal');
+                    }
+                }
+                else
+                {
+                    session.send(`Con respecto a su consulta del estado de postulación del rut: ${rut.getNiceRut()} No se encontraron registros.`)
+                    session.beginDialog('MenuAyuda','MenuFinal');
+                }            
+            })
+            .catch(function (error) {
+                    session.send('Lo siento, hubo un error al consultar sobre el estado de postulación del rut: ' + rut.getNiceRut())
+                    console.log('error')
+                    console.dir(error)   
+                    session.beginDialog('MenuAyuda','MenuFinal'); 
+            });
+
+        /*
         new sql.ConnectionPool(process.env.DBRukanMigra)
         .connect().then(pool => {
             // Query
             //Obtiene el PA de consumo de Rukan
             return pool.request()
-                .input('RUT', sql.Int, digitos)
+                .input('RUT', sql.VarChar, digitos)
                 .execute('RUKAN_MIGRA_USP_CON_DINBOT_ESTADO_POSTULACION_DS49')
         }).then(result => {
             //si encuentra resultado crea las tarjetas, en caso de no encontrar resultado entrega mensaje que no encuentra registros
@@ -58,25 +101,26 @@ function DS49EstadoPostulacion(builder) {
                     .attachmentLayout(builder.AttachmentLayout.carousel)
                     .attachments(cards)
 
-                session.send(`Con respecto a la consulta del estado de postulación en DS49 del rut: ${rut.getNiceRut()} le puedo dar la siguiente información:`)
+                session.send(`Con respecto a la consulta del estado de postulación del rut: ${rut.getNiceRut()} le puedo dar la siguiente información:`)
                 session.send(reply)
                 session.beginDialog('MenuAyuda','MenuFinal'); 
             }
             else
             {
-                session.send('Con respecto a su consulta del estado de postulación en DS49 del rut: No se encontraron registros')
+                session.send('Con respecto a su consulta del estado de postulación del rut: No se encontraron registros')
                 session.beginDialog('MenuAyuda','MenuFinal'); 
             }
 
             sql.close()
         }).catch(err => {
-            session.send('Lo siento, hubo un error al consultar sobre el estado de postulación en DS49 del rut: ' + rut.getNiceRut())
+            session.send('Lo siento, hubo un error al consultar sobre el estado de postulación del rut: ' + rut.getNiceRut())
 
             console.log('error')
             console.dir(err)
             sql.close()            
             session.beginDialog('MenuAyuda','MenuFinal'); 
         });
+        */
     session.endDialog()
 }]
 
@@ -150,7 +194,7 @@ function createHeroCard(session, rutCompleto, objPersona) {
     }
 
     return new builder.HeroCard(session)
-        .title('DS49 - Estado de Postulación')
+        .title('Estado de Postulación')
         .subtitle(rutCompleto + ' ' + nombrePersona)        
         .text(detallePostulacion)
         .images([
@@ -176,4 +220,4 @@ function onWaitGif(session) {
             */
     }    
 }
-exports.DS49EstadoPostulacion = DS49EstadoPostulacion;
+exports.EstadoPostulacion = EstadoPostulacion;

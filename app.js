@@ -96,8 +96,11 @@ var intents = new builder.IntentDialog({ recognizers: [recognizer] })
 .matches('Juegos.Ahorcado',function(session){
     dinbot.beginDialog('JuegosAhorcado',session);    
 })
-.matches('DS49.EstadoPostulacion',function(session){
-    dinbot.beginDialog('DS49EstadoPostulacion',session);    
+.matches('ConsultaProgramas.EstadoPostulacion',function(session){
+    dinbot.beginDialog('EstadoPostulacion',session);    
+})
+.matches('ConsultaProgramas.EstadoProyecto',function(session){
+    dinbot.beginDialog('EstadoProyecto',session);    
 })
 .onDefault((session) => {
     session.send('lo lamento, no entiendo lo que has dicho \'%s\'.', session.message.text);

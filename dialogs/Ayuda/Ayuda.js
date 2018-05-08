@@ -26,7 +26,7 @@ function Ayuda(builder) {
             case 'Ver opciones':
             {
                 builder.Prompts.choice(session, '¡Excelente!, Existen las siguientes opciones de consulta ✌:',
-                'RSH - Grupo Familiar|RSH - Tramo|Registro Civil|SPS - Estado de Pago|DS49 - Estado Postulación|Aranda - Consulta de Requerimiento|Aranda - Consulta de Incidente', 
+                'RSH - Grupo Familiar|RSH - Tramo|Registro Civil|SPS - Estado de Pago|Estado Postulación|Estado Proyecto|Aranda - Consulta de Requerimiento|Aranda - Consulta de Incidente', 
                 { listStyle: builder.ListStyle.button });    
                 break;
             }
@@ -38,7 +38,7 @@ function Ayuda(builder) {
             case 'Sí':
             {
                 builder.Prompts.choice(session, '¡Excelente!, Existen las siguientes opciones de consulta ✌:',
-                'RSH - Grupo Familiar|RSH - Tramo|Registro Civil|SPS - Estado de Pago|DS49 - Estado Postulación|Aranda - Consulta de Requerimiento|Aranda - Consulta de Incidente', 
+                'RSH - Grupo Familiar|RSH - Tramo|Registro Civil|SPS - Estado de Pago|Estado Postulación|Estado Proyecto|Aranda - Consulta de Requerimiento|Aranda - Consulta de Incidente', 
                 { listStyle: builder.ListStyle.button }); 
                 break;
             }
@@ -74,11 +74,16 @@ function Ayuda(builder) {
                 session.beginDialog('SPSEstadoPago');
                 break;
             }  
-            case 'DS49 - Estado Postulación':
+            case 'Estado Postulación':
             {
-                session.beginDialog('DS49EstadoPostulacion');
+                session.beginDialog('EstadoPostulacion');
                 break;
-            }               
+            } 
+            case 'Estado Proyecto':
+            {
+                session.beginDialog('EstadoProyecto');
+                break;
+            }      
             case 'Aranda - Consulta de Requerimiento':
             {
                 session.beginDialog('ArandaRequerimiento');

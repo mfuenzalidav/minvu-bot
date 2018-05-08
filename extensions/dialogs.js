@@ -12,7 +12,8 @@ var Dialogs = {
         var ArandaIncidente = new dialogs.ArandaIncidente(builder);
         var ArandaRequerimiento = new dialogs.ArandaRequerimiento(builder);
         var JuegoAhorcado = new dialogs.JuegoAhorcado(builder, bot)
-        var DS49EstadoPostulacion = new dialogs.DS49EstadoPostulacion(builder, bot)
+        var EstadoPostulacion = new dialogs.EstadoPostulacion(builder, bot)
+        var EstadoProyecto = new dialogs.EstadoProyecto(builder, bot)
 
 
         return [
@@ -24,7 +25,8 @@ var Dialogs = {
             { dialogId: ArandaIncidente.dialogId, dialog: ArandaIncidente.dialog },             //ArandaIncidente
             { dialogId: ArandaRequerimiento.dialogId, dialog: ArandaRequerimiento.dialog },     //ArandaRequerimiento
             { dialogId: JuegoAhorcado.dialogId, dialog: JuegoAhorcado.dialog },                 //JuegoAhorcado
-            { dialogId: DS49EstadoPostulacion.dialogId, dialog: DS49EstadoPostulacion.dialog }, //DS49EstadoPostulacion
+            { dialogId: EstadoPostulacion.dialogId, dialog: EstadoPostulacion.dialog },         //EstadoPostulacion
+            { dialogId: EstadoProyecto.dialogId, dialog: EstadoProyecto.dialog },               //EstadoProyecto
         ]
     }
 }
