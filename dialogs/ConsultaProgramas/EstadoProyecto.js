@@ -98,44 +98,6 @@ function EstadoProyecto(builder) {
                     session.beginDialog('MenuAyuda','MenuFinal'); 
                 });
     
-/*
-        new sql.ConnectionPool(process.env.DBRukanMigra)
-        .connect().then(pool => {
-            // Query
-            //Obtiene el PA de consumo de Rukan
-            return pool.request()
-                .input('GRU_ID', sql.Int, codigo)
-                .execute('RUKAN_MIGRA_USP_CON_DINBOT_ESTADO_PROYECTO_DS49')
-        }).then(result => {
-            //si encuentra resultado crea la tarjetas, en caso de no encontrar resultado entrega mensaje que no encuentra registros
-            //console.log(result.recordsets)
-            if (result.recordsets[0].length > 0) {
-                item = result.recordsets[0]
-                //Manda el proyecto encontrado para crearlo en tarjeta
-                createHeroCard(session, codigo, item)
-
-                var reply = new builder.Message(session).addAttachment(card);
-
-                session.send(`Con respecto a la consulta del estado de proyecto para el código: ${codigo} le puedo dar la siguiente información:`)
-                session.send(reply)
-                session.beginDialog('MenuAyuda','MenuFinal'); 
-            }
-            else
-            {
-                session.send('Con respecto a su consulta del estado de proyecto para el código: No se encontraron registros')
-                session.beginDialog('MenuAyuda','MenuFinal'); 
-            }
-
-            sql.close()
-        }).catch(err => {
-            session.send('Lo siento, hubo un error al consultar sobre el estado de proyecto para el código: ' + codigo)
-
-            console.log('error')
-            console.dir(err)
-            sql.close()            
-            session.beginDialog('MenuAyuda','MenuFinal'); 
-        });
-        */
     session.endDialog()
 }]
 

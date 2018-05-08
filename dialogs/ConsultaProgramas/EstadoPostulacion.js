@@ -75,52 +75,6 @@ function EstadoPostulacion(builder) {
                     console.dir(error)   
                     session.beginDialog('MenuAyuda','MenuFinal'); 
             });
-
-        /*
-        new sql.ConnectionPool(process.env.DBRukanMigra)
-        .connect().then(pool => {
-            // Query
-            //Obtiene el PA de consumo de Rukan
-            return pool.request()
-                .input('RUT', sql.VarChar, digitos)
-                .execute('RUKAN_MIGRA_USP_CON_DINBOT_ESTADO_POSTULACION_DS49')
-        }).then(result => {
-            //si encuentra resultado crea las tarjetas, en caso de no encontrar resultado entrega mensaje que no encuentra registros
-            //console.log(result.recordsets)
-            if (result.recordsets[0].length > 0) {
-                var cards = new Array();
-                //Manda las postulaciones encontradas para crearlos en tarjetas
-                for (var i = 0; i < result.recordsets[0].length; i++) {
-                    item = result.recordsets[0][i]
-                    //lo agrega a un array de tarjetas
-                    cards.push(createHeroCard(session, rut.getNiceRut(), item))
-                }
-
-                //crea un carousel con las tarjetas antes creadas
-                var reply = new builder.Message(session)
-                    .attachmentLayout(builder.AttachmentLayout.carousel)
-                    .attachments(cards)
-
-                session.send(`Con respecto a la consulta del estado de postulación del rut: ${rut.getNiceRut()} le puedo dar la siguiente información:`)
-                session.send(reply)
-                session.beginDialog('MenuAyuda','MenuFinal'); 
-            }
-            else
-            {
-                session.send('Con respecto a su consulta del estado de postulación del rut: No se encontraron registros')
-                session.beginDialog('MenuAyuda','MenuFinal'); 
-            }
-
-            sql.close()
-        }).catch(err => {
-            session.send('Lo siento, hubo un error al consultar sobre el estado de postulación del rut: ' + rut.getNiceRut())
-
-            console.log('error')
-            console.dir(err)
-            sql.close()            
-            session.beginDialog('MenuAyuda','MenuFinal'); 
-        });
-        */
     session.endDialog()
 }]
 
