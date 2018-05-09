@@ -12,8 +12,13 @@ var Dialogs = {
         var ArandaIncidente = new dialogs.ArandaIncidente(builder);
         var ArandaRequerimiento = new dialogs.ArandaRequerimiento(builder);
         var JuegoAhorcado = new dialogs.JuegoAhorcado(builder, bot)
+<<<<<<< HEAD
         var EstadoPostulacion = new dialogs.EstadoPostulacion(builder, bot)
         var EstadoProyecto = new dialogs.EstadoProyecto(builder, bot)
+=======
+        var DS49EstadoPostulacion = new dialogs.DS49EstadoPostulacion(builder, bot)
+        var DS49EstadoProyecto = new dialogs.DS49EstadoProyecto(builder, bot)
+>>>>>>> 00554fe5853a7ae20ace7b92db2ebc3ddfc2daf2
 
 
         return [
@@ -25,8 +30,13 @@ var Dialogs = {
             { dialogId: ArandaIncidente.dialogId, dialog: ArandaIncidente.dialog },             //ArandaIncidente
             { dialogId: ArandaRequerimiento.dialogId, dialog: ArandaRequerimiento.dialog },     //ArandaRequerimiento
             { dialogId: JuegoAhorcado.dialogId, dialog: JuegoAhorcado.dialog },                 //JuegoAhorcado
+<<<<<<< HEAD
             { dialogId: EstadoPostulacion.dialogId, dialog: EstadoPostulacion.dialog },         //EstadoPostulacion
             { dialogId: EstadoProyecto.dialogId, dialog: EstadoProyecto.dialog },               //EstadoProyecto
+=======
+            { dialogId: DS49EstadoPostulacion.dialogId, dialog: DS49EstadoPostulacion.dialog }, //DS49EstadoPostulacion
+            { dialogId: DS49EstadoProyecto.dialogId, dialog: DS49EstadoProyecto.dialog },       //DS49EstadoProyecto
+>>>>>>> 00554fe5853a7ae20ace7b92db2ebc3ddfc2daf2
         ]
     }
 }

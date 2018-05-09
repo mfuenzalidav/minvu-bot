@@ -14,8 +14,8 @@ function Ahorcado(builder, bot) {
     this.dialog = [(session, args, next) => {
         vidas = 5
         palabra = palabras[Math.floor(Math.random() * (palabras.length - 0)) + 0]
-        enmascarada = palabra.replace(/[\S]/ig, 'X')
-        session.send('Adivida las palabras ocultas');
+        enmascarada = palabra.replace(/[\S]/ig, '-')
+        session.send('Adivina las palabras ocultas');
         session.beginDialog('/AdivinarAhorcado');
     }]
 

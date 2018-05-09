@@ -22,8 +22,16 @@ exports.ArandaRequerimiento = ArandaRequerimiento_1.ArandaRequerimiento
 var JuegoAhorcado_1 = require('./Juegos/Ahorcado')
 exports.JuegoAhorcado = JuegoAhorcado_1.Ahorcado
 
+<<<<<<< HEAD
 var EstadoPostulacion_1 = require('./ConsultaProgramas/EstadoPostulacion')
 exports.EstadoPostulacion = EstadoPostulacion_1.EstadoPostulacion
 
 var EstadoProyecto_1 = require('./ConsultaProgramas/EstadoProyecto')
 exports.EstadoProyecto = EstadoProyecto_1.EstadoProyecto
+=======
+var DS49EstadoPostulacion_1 = require('./DS49/EstadoPostulacion')
+exports.DS49EstadoPostulacion = DS49EstadoPostulacion_1.DS49EstadoPostulacion
+
+var DS49EstadoProyecto_1 = require('./DS49/EstadoProyecto')
+exports.DS49EstadoProyecto = DS49EstadoProyecto_1.DS49EstadoProyecto
+>>>>>>> 00554fe5853a7ae20ace7b92db2ebc3ddfc2daf2

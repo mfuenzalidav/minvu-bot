@@ -35,6 +35,7 @@ function EstadoPostulacion(builder) {
         var digitos = rut.rut;
         var verificador = rut.checkDigit;
 
+<<<<<<< HEAD:dialogs/ConsultaProgramas/EstadoPostulacion.js
         const url = process.env.DINBOT_API + `/EstadoPostulacion/EstadoPostulacion/${digitos}`;
         axios.get(url)
             .then(function (response) {
@@ -62,6 +63,25 @@ function EstadoPostulacion(builder) {
                         session.send(`Con respecto a su consulta del estado de postulación del rut: ${rut.getNiceRut()} No se encontró información.`)
                         session.beginDialog('MenuAyuda','MenuFinal');
                     }
+=======
+        new sql.ConnectionPool(process.env.DBRukanMigra)
+        .connect().then(pool => {
+            // Query
+            //Obtiene el PA de consumo de Rukan
+            return pool.request()
+                .input('RUT', sql.VarChar, digitos)
+                .execute('RUKAN_MIGRA_USP_CON_DINBOT_ESTADO_POSTULACION_DS49')
+        }).then(result => {
+            //si encuentra resultado crea las tarjetas, en caso de no encontrar resultado entrega mensaje que no encuentra registros
+            //console.log(result.recordsets)
+            if (result.recordsets[0].length > 0) {
+                var cards = new Array();
+                //Manda las postulaciones encontradas para crearlos en tarjetas
+                for (var i = 0; i < result.recordsets[0].length; i++) {
+                    item = result.recordsets[0][i]
+                    //lo agrega a un array de tarjetas
+                    cards.push(createHeroCard(session, rut.getNiceRut(), item))
+>>>>>>> 00554fe5853a7ae20ace7b92db2ebc3ddfc2daf2:dialogs/DS49/EstadoPostulacion.js
                 }
                 else
                 {

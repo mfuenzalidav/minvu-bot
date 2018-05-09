@@ -26,7 +26,11 @@ function Ayuda(builder) {
             case 'Ver opciones':
             {
                 builder.Prompts.choice(session, '¡Excelente!, Existen las siguientes opciones de consulta ✌:',
+<<<<<<< HEAD
                 'RSH - Grupo Familiar|RSH - Tramo|Registro Civil|SPS - Estado de Pago|Estado Postulación|Estado Proyecto|Aranda - Consulta de Requerimiento|Aranda - Consulta de Incidente', 
+=======
+                'RSH - Grupo Familiar|RSH - Tramo|Registro Civil|SPS - Estado de Pago|DS49 - Estado Postulación|Banco de Postulaciones - Estado Proyecto|Aranda - Consulta de Requerimiento|Aranda - Consulta de Incidente', 
+>>>>>>> 00554fe5853a7ae20ace7b92db2ebc3ddfc2daf2
                 { listStyle: builder.ListStyle.button });    
                 break;
             }
@@ -38,13 +42,17 @@ function Ayuda(builder) {
             case 'Sí':
             {
                 builder.Prompts.choice(session, '¡Excelente!, Existen las siguientes opciones de consulta ✌:',
+<<<<<<< HEAD
                 'RSH - Grupo Familiar|RSH - Tramo|Registro Civil|SPS - Estado de Pago|Estado Postulación|Estado Proyecto|Aranda - Consulta de Requerimiento|Aranda - Consulta de Incidente', 
+=======
+                'RSH - Grupo Familiar|RSH - Tramo|Registro Civil|SPS - Estado de Pago|DS49 - Estado Postulación|Banco de Postulaciones - Estado Proyecto|Aranda - Consulta de Requerimiento|Aranda - Consulta de Incidente', 
+>>>>>>> 00554fe5853a7ae20ace7b92db2ebc3ddfc2daf2
                 { listStyle: builder.ListStyle.button }); 
                 break;
             }
             case 'No':
             {
-                session.endDialog('No hay problema 😇, ¿Qué deseas consultar?');
+                session.endDialog('Ha sido un placer ayudarle. ¡Que tenga un buen día! 👋👾');
                 break;
             }
         }
@@ -79,9 +87,15 @@ function Ayuda(builder) {
                 session.beginDialog('EstadoPostulacion');
                 break;
             } 
+<<<<<<< HEAD
             case 'Estado Proyecto':
             {
                 session.beginDialog('EstadoProyecto');
+=======
+            case 'Banco de Postulaciones - Estado Proyecto':
+            {
+                session.beginDialog('DS49EstadoProyecto');
+>>>>>>> 00554fe5853a7ae20ace7b92db2ebc3ddfc2daf2
                 break;
             }      
             case 'Aranda - Consulta de Requerimiento':

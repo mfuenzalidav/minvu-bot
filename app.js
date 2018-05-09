@@ -4,7 +4,7 @@ var botbuilder_azure    = require("botbuilder-azure");
 const soap              = require('soap')
 var Rut                 = require('rutjs')
 var dinbot              = require('./extensions/dinbot')
-const dotenv            = require('dotenv').config({ path: '.env' });
+//const dotenv            = require('dotenv').config({ path: '.env' });
 
 var server = restify.createServer();
 server.listen(process.env.port || process.env.PORT || 3978, () => {
@@ -25,7 +25,7 @@ var tableStorage = new botbuilder_azure.AzureBotStorage({ gzipData: false }, azu
 
 var bot = new builder.UniversalBot(connector);
 //Para uso propio de AZURE
-//bot.set('storage', tableStorage);
+bot.set('storage', tableStorage);
 
 bot.use({
     botbuilder: function (session, next) {
@@ -101,6 +101,9 @@ var intents = new builder.IntentDialog({ recognizers: [recognizer] })
 })
 .matches('ConsultaProgramas.EstadoProyecto',function(session){
     dinbot.beginDialog('EstadoProyecto',session);    
+})
+.matches('DS49.EstadoProyecto',function(session){
+    dinbot.beginDialog('DS49EstadoProyecto',session);    
 })
 .onDefault((session) => {
     session.send('lo lamento, no entiendo lo que has dicho \'%s\'.', session.message.text);
