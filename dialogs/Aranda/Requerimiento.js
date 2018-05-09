@@ -1,6 +1,7 @@
 const sql = require('mssql')
 const axios = require('axios')
 var util = require('util')
+const helper = require('../../extensions/helper');
 
 function ArandaRequerimiento(builder) {
     //this.builder = builder
@@ -103,7 +104,10 @@ function ArandaRequerimiento(builder) {
 
         console.log(objRequerimiento)
 
-        var Fecha_Creacion = 'Sin registro';
+        var Fecha_Creacion = helper.getFormateaFecha(objRequerimiento.Fecha_Creacion);
+        var Fecha_Solucion_Proyectada = helper.getFormateaFecha(objRequerimiento.Fecha_Solucion_Proyectada);
+        var Fecha_Solucion_Real = helper.getFormateaFecha(objRequerimiento.Fecha_Solucion_Real);
+        /*
         if (!util.isNullOrUndefined(objRequerimiento.Fecha_Creacion)) {console.log()
             var _fecha_creacion = new Date(objRequerimiento.Fecha_Creacion)
             var dia = _fecha_creacion.getDate() < 10 ? `0${_fecha_creacion.getDate()}` : `${_fecha_creacion.getDate()}`
@@ -128,7 +132,7 @@ function ArandaRequerimiento(builder) {
             Fecha_Solucion_Real = `${dia}/${mes}/${año}`
         }
 
-
+*/
         var datosPersona = `**Codigo:** ${idRequerimiento}`
             + `\n\n **Categoria:** ${objRequerimiento.Categoria}`
             + `\n\n **Estado:** ${objRequerimiento.Estado}`

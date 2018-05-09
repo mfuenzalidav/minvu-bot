@@ -1,4 +1,3 @@
-const sql = require('mssql')
 const util = require('util')
 const axios = require('axios')
 
@@ -42,7 +41,7 @@ function EstadoProyecto(builder) {
         else {
             var codigos = results.response;
             if (codigos.length > 1) {
-                builder.Prompts.choice(session, "Me enviaste más de un código de proyecto, ¿cuál quieres consultar? :O", codigos, { listStyle: builder.ListStyle.button });
+                builder.Prompts.choice(session, "Me enviaste más de un código de proyecto, ¿cuál quieres consultar? 😁", codigos, { listStyle: builder.ListStyle.button });
             }
             else {
                 next({ response: codigos[0] })
@@ -91,7 +90,7 @@ function EstadoProyecto(builder) {
                     }            
                 })
                 .catch(function (error) {
-                    session.send('Lo siento, hubo un error al consultar sobre el estado de proyecto para el código: ' + codigo)
+                    session.send('Lo siento, hubo un error al consultar el estado de proyecto para el código: ' + codigo)
 
                     console.log('error')
                     console.dir(error)        
@@ -110,8 +109,8 @@ function createHeroCard(session, codigoProyecto, objProyecto) {
         + `\n\n**NOMBRE PROYECTO**: ${objProyecto.Nombre_Proyecto}`
         + `\n\n**TIPOLOGÍA DE PROYECTO**: ${objProyecto.Tipo_Proyecto}`
         + `\n\n**ESTADO**: ${objProyecto.Estado_Proyecto}`   
-        + `\n\n**N° VIVIENDAS**: ${objProyecto.Viviendas_Adscritas}` 
-        + `\n\n**N° FAMILIAS ADSCRITAS**: ${objProyecto.Numero_Viviendas}`     
+        + `\n\n**N° VIVIENDAS**: ${objProyecto.Numero_Viviendas}` 
+        + `\n\n**N° FAMILIAS ADSCRITAS**: ${objProyecto.Viviendas_Adscritas}`     
         + `\n\n**MONTO TOTAL SUBSIDIO**: ${objProyecto.Total_Subsidios}`   
         + `\n\n**MONTO TOTAL AHORROS + APORTES ADICIONALES**: ${objProyecto.Suma_Total_Ahorro_Aporte}`   
 

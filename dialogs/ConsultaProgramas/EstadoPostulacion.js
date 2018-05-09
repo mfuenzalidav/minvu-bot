@@ -1,7 +1,6 @@
-const sql = require('mssql')
 const axios = require('axios')
 var Rut = require('rutjs')
-const util = require('util')
+const helper = require('../../extensions/helper');
 
 
 function EstadoPostulacion(builder) {
@@ -90,7 +89,7 @@ function EstadoPostulacion(builder) {
                 }            
             })
             .catch(function (error) {
-                    session.send('Lo siento, hubo un error al consultar sobre el estado de postulación del rut: ' + rut.getNiceRut())
+                    session.send('Lo siento, hubo un error al consultar el estado de postulación del rut: ' + rut.getNiceRut())
                     console.log('error')
                     console.dir(error)   
                     session.beginDialog('MenuAyuda','MenuFinal'); 
@@ -100,16 +99,8 @@ function EstadoPostulacion(builder) {
 
 function createHeroCard(session, rutCompleto, objPersona) {
     var detallePostulacion;
-    var noAplica = 'N/A';
-    var FechaPostulacion = 'Sin registro';
+    var noAplica = 'N/A';    
     var nombrePersona = objPersona.NombrePersona;
-    if (!util.isNullOrUndefined(objPersona.FechaPostulacion)) {
-        var _fecha_postulacion = new Date(objPersona.FechaPostulacion)
-        var dia = _fecha_postulacion.getDate() < 10 ? `0${_fecha_postulacion.getDate()}` : `${_fecha_postulacion.getDate()}`
-        var mes = _fecha_postulacion.getMonth() < 10 ? `0${_fecha_postulacion.getMonth()}` : `${_fecha_postulacion.getMonth()}`
-        var año = _fecha_postulacion.getFullYear()
-        FechaPostulacion = `${dia}/${mes}/${año}`
-    }
 
     detallePostulacion = `**TIPO DE POSTULACIÓN**: ${objPersona.TipoPostulacion}`
         + `\n\n**ESTADO RUKÁN**: ${objPersona.EstadoRukan}`

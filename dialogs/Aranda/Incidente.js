@@ -1,6 +1,7 @@
 const sql = require('mssql')
 const axios = require('axios')
 var util = require('util')
+const helper = require('../../extensions/helper');
 
 function ArandaIncidente(builder) {
     //this.builder = builder
@@ -99,35 +100,10 @@ function ArandaIncidente(builder) {
 
     }]
 
-    function createHeroCard(session, idIncidente, objIncidente) {
-
-        
-
-        var Fecha_Creacion = 'Sin registro';
-        if (!util.isNullOrUndefined(objIncidente.Fecha_Creacion)) {
-            var _fecha_creacion = new Date(objIncidente.Fecha_Creacion)
-            var dia = _fecha_creacion.getDate() < 10 ? `0${_fecha_creacion.getDate()}` : `${_fecha_creacion.getDate()}`
-            var mes = _fecha_creacion.getMonth() < 10 ? `0${_fecha_creacion.getMonth()}` : `${_fecha_creacion.getMonth()}`
-            var año = _fecha_creacion.getFullYear()
-            Fecha_Creacion = `${dia}/${mes}/${año}`
-        }
-        var Fecha_Solucion_Proyectada = 'Sin registro';
-        if (!util.isNullOrUndefined(objIncidente.Fecha_Solucion_Proyectada)) {
-            var _fecha_solucion_proyectada = new Date(objIncidente.Fecha_Solucion_Proyectada)
-            var dia = _fecha_solucion_proyectada.getDate() < 10 ? `0${_fecha_solucion_proyectada.getDate()}` : `${_fecha_solucion_proyectada.getDate()}`
-            var mes = _fecha_solucion_proyectada.getMonth() < 10 ? `0${_fecha_solucion_proyectada.getMonth()}` : `${_fecha_solucion_proyectada.getMonth()}`
-            var año = _fecha_solucion_proyectada.getFullYear()
-            Fecha_Solucion_Proyectada = `${dia}/${mes}/${año}`
-        }
-        var Fecha_Solucion_Real = 'Sin registro';
-        if (!util.isNullOrUndefined(objIncidente.Fecha_Solucion_Real)) {
-            var _fecha_solucion_real = new Date(objIncidente.Fecha_Solucion_Real)
-            var dia = _fecha_solucion_real.getDate() < 10 ? `0${_fecha_solucion_real.getDate()}` : `${_fecha_solucion_real.getDate()}`
-            var mes = _fecha_solucion_real.getMonth() < 10 ? `0${_fecha_solucion_real.getMonth()}` : `${_fecha_solucion_real.getMonth()}`
-            var año = _fecha_solucion_real.getFullYear()
-            Fecha_Solucion_Real = `${dia}/${mes}/${año}`
-        }
-
+    function createHeroCard(session, idIncidente, objIncidente) {      
+        var Fecha_Creacion = helper.getFormateaFecha(objIncidente.Fecha_Creacion);
+        var Fecha_Solucion_Proyectada = helper.getFormateaFecha(objIncidente.Fecha_Solucion_Proyectada);
+        var Fecha_Solucion_Real = helper.getFormateaFecha(objIncidente.Fecha_Solucion_Real);
 
         var datosPersona = `**Codigo:** ${idIncidente}`
             + `\n\n **Categoria:** ${objIncidente.Categoria}`
