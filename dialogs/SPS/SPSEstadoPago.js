@@ -1,6 +1,7 @@
 const sql = require('mssql')
 var Rut = require('rutjs')
 const util = require('util')
+const helper = require('../../extensions/helper');
 
 function SPSEstadoPago(builder) {
     this.dialogId = 'SPSEstadoPago'
@@ -23,7 +24,10 @@ function SPSEstadoPago(builder) {
     },
     (session, results) => {
         if (results === 'cancel')
+        {
             session.endDialog('Ha cancelado la consulta del estado de pago en los sistemas de Pago de Subsidio');
+            session.beginDialog('MenuAyuda','MenuFinal');  
+        }
 
         var rut = new Rut(results.response)
         var digitos = rut.rut
@@ -39,7 +43,6 @@ function SPSEstadoPago(builder) {
                     .execute('USP_CON_SPS_ESTADO_PAGO')
             }).then(result => {
                 //si encuentra resultado crea las tarjetas, en caso de no encontrar resultado entrega mensaje que no encuentra registros
-                //console.log(result.recordsets)
                 if (result.recordsets[0].length > 0) {
                     var cards = new Array();
                     //Manda los beneficios encontrados para crearlos en tarjetas
@@ -56,16 +59,20 @@ function SPSEstadoPago(builder) {
 
                     session.send(`Con respecto a la consulta del estado de pago del rut: ${rut.getNiceRut()} le puedo dar la siguiente información:`)
                     session.send(reply)
+                    session.beginDialog('MenuAyuda','MenuFinal');  
 
                 }
                 else
-                    session.send('Con respecto a su consulta del estado de pago del rut: No se encontraron registros')
+                {
+                    session.send(`Con respecto a su consulta del estado de pago del rut: ${rut.getNiceRut()}, no se encontraron registros`)
+                    session.beginDialog('MenuAyuda','MenuFinal');  
+                }
 
                 sql.close()
             }).catch(err => {
                 session.send('Lo siento, hubo un error al consultar sobre el estado de pago del rut: ' + rut.getNiceRut())
-
                 console.log('error')
+                session.beginDialog('MenuAyuda','MenuFinal');  
                 console.dir(err)
                 sql.close()
             });
@@ -74,13 +81,7 @@ function SPSEstadoPago(builder) {
 
     function createHeroCard(session, rutCompleto, objPersona) {
         var detalleBeneficiario;
-        var fechaUltimoPago = 'Sin registro';
-        if (!util.isNullOrUndefined(objPersona.FechaUltimoPago)) {
-            var dia = objPersona.FechaUltimoPago.getDate() < 10 ? `0${objPersona.FechaUltimoPago.getDate()}` : `${objPersona.FechaUltimoPago.getDate()}`
-            var mes = objPersona.FechaUltimoPago.getMonth() < 10 ? `0${objPersona.FechaUltimoPago.getMonth()}` : `${objPersona.FechaUltimoPago.getMonth()}`
-            var año = objPersona.FechaUltimoPago.getFullYear()
-            fechaUltimoPago = `${dia}/${mes}/${año}`
-        }
+        var fechaUltimoPago = helper.getFormateaFecha(objPersona.FechaUltimoPago);
 
         detalleBeneficiario = `**NÚMERO CERTIFICADO**: ${(util.isNullOrUndefined(objPersona.NumeroCertificado) ? `Sin Registro` : objPersona.NumeroCertificado)}`
             + `\n\n**PROGRAMA ORIGEN**: ${(util.isNullOrUndefined(objPersona.ProgramaOrigen) ? `Sin Registro` : objPersona.ProgramaOrigen)}`

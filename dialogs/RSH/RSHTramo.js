@@ -22,7 +22,6 @@ function RSHTramo(builder) {
         session.send('¡Muy bien! Vamos a realizar una consulta en el servicio de RSH 😁');
         
         if (!groups || !RutValido) {
-            session.send((groups && !RutValido) ? 'El rut no es válido 😒' : 'Debes entregarme un rut para consultar 🙄')
             builder.Prompts.ValidarRut(session, "🤔... ¿Cuál rut vamos a consultar? 😈");
 
         }
@@ -49,7 +48,7 @@ function RSHTramo(builder) {
         soap.createClient(process.env.SOAP_RSH, function (err, client) {
             if (err) {
                 console.log('ERROR EN RSH TRAMO' + err)
-                session.send('¡Lo lamento!, 😭, hubo un error al consultar el servicio de RSH 😅');
+                session.send('¡Lo lamento!, 😭, hubo un error al consultar el servicio de información de Registro Social de Hogares 😅');
             }
             else {
                 client['ObtenerRegistroSocialHogaresAsync'](args).then((result) => {
@@ -57,7 +56,7 @@ function RSHTramo(builder) {
                     if (!result.ObtenerRegistroSocialHogaresResult.RESULTADO ||
                         !result.ObtenerRegistroSocialHogaresResult.RESPUESTA ||
                         !result.ObtenerRegistroSocialHogaresResult.RESPUESTA.salidaRSH) {
-                        session.send('¡Lo lamento!, 😭, no pude obtener datos del servicio de RSH 😅');
+                        session.send('¡Lo lamento!, 😭, no pude obtener datos del servicio de información de Registro Social de Hogares 😅');
                         session.beginDialog('MenuAyuda','MenuFinal'); 
                     }
                     else {
@@ -72,18 +71,18 @@ function RSHTramo(builder) {
                         }
                         else if (result.ObtenerRegistroSocialHogaresResult.RESPUESTA.salidaRSH.Estado === 2)
                         {
-                            session.send('¡Pucha! el tramo del rut consultado' + rut.getNiceRut() + ' no tiene registros en RSH 😱');  
+                            session.send('¡Pucha! el rut consultado' + rut.getNiceRut() + ' no cuenta con información en Registro Social de Hogares 😱');  
                             session.beginDialog('MenuAyuda','MenuFinal'); 
                         }
                         else
                         {
-                            session.send('Intente consultar el tramo en RSH pero no reconozco la información que me entrega 😟');     
+                            session.send('Intente consultar el tramo en RSH, pero no reconozco la información que me entrega el servicio 😟');     
                             session.beginDialog('MenuAyuda','MenuFinal');       
                         }
                     }
                 }).catch((err) => {
                     console.log(err)
-                    session.send('¡Lo lamento!, 😭, hubo un error al consultar el servicio de RSH 😅'); 
+                    session.send('¡Lo lamento!, 😭, hubo un error al consultar el servicio de información de Registro Social de Hogares 😅'); 
                     session.beginDialog('MenuAyuda','MenuFinal'); 
 
                 });

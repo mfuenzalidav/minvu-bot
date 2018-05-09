@@ -9,7 +9,7 @@ var CustomPrompts = {
 module.exports = CustomPrompts
 
 function setPromptRutValidador(bot, builder, recognizer) {
-    var prompt = new builder.Prompt({ defaultRetryPrompt: "Lo siento. No reconozco el rut. Intente nuevamente." })
+    var prompt = new builder.Prompt({ defaultRetryPrompt: "El rut ingresado no es válido, favor intente nuevamente. (Formato sugerido: XXXXXXXX-X)" })
         .onRecognize(function (context, callback) {
             // Call prompts recognizer
             recognizer.recognize(context, function (err, result) {

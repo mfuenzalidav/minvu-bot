@@ -32,7 +32,7 @@ function RSHGrupoFamiliar(builder) {
 
             soap.createClient(process.env.SOAP_RSH, function (err, client) {
                 if (err) {
-                    session.send('Con respecto a su consulta del grupo familiar en RSH, lo lamento, tuve un error al consultar el servicio de RSH 😢');
+                    session.send('Con respecto a su consulta del grupo familiar en RSH, lo lamento, tuve un error al consultar el servicio información de Registro Social de Hogares 😢');
                     console.log(err)
                     session.beginDialog('MenuAyuda','MenuFinal'); 
                 }
@@ -41,7 +41,7 @@ function RSHGrupoFamiliar(builder) {
                         if (!result.ObtenerRegistroSocialHogaresResult.RESULTADO ||
                             !result.ObtenerRegistroSocialHogaresResult.RESPUESTA ||
                             !result.ObtenerRegistroSocialHogaresResult.RESPUESTA.salidaRSH) {
-                            session.send('Con respecto a su consulta del grupo familiar en RSH, lo lamento, no pude obtener datos del servicio RSH 😭')
+                            session.send('Con respecto a su consulta del grupo familiar en RSH, lo lamento, no pude obtener datos del servicio información de Registro Social de Hogares 😭')
                             session.beginDialog('MenuAyuda','MenuFinal'); 
                         }
                         else {
@@ -57,18 +57,18 @@ function RSHGrupoFamiliar(builder) {
                             }
                             else if (result.ObtenerRegistroSocialHogaresResult.RESPUESTA.salidaRSH.Estado === 2)
                             {
-                                session.send('Con respecto a su consulta del grupo familiar en RSH, el rut ' + rut.getNiceRut() + ' no tiene registros en RSH 😱');
+                                session.send('Con respecto a su consulta del grupo familiar en RSH, el rut ' + rut.getNiceRut() + ' no cuenta con información en Registro Social de Hogares 😱');
                                 session.beginDialog('MenuAyuda','MenuFinal'); 
                             }
                             else
                             {
-                                session.send('Con respecto a su consulta del grupo familiar en RSH, no reconozco la información que me entregan 😢');
+                                session.send('Con respecto a su consulta del grupo familiar en RSH, pero no reconozco la información que me entrega el servicio 😢');
                                 session.beginDialog('MenuAyuda','MenuFinal'); 
                             }                                
                         }
                     }).catch((err) => {
                         console.log(err)
-                        session.send('Con respecto a su consulta del grupo familiar en RSH, lo lamento, tuve un error en la consulta del servicio de RSH 😭');
+                        session.send('Con respecto a su consulta del grupo familiar en RSH, lo lamento, hubo un error al consultar el servicio de información de Registro Social de Hogares 😭');
                         session.beginDialog('MenuAyuda','MenuFinal'); 
                     });
                 }

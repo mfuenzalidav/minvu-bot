@@ -1,5 +1,6 @@
 const soap = require('soap')
 var Rut = require('rutjs')
+const helper = require('../../extensions/helper');
 
 
 function RCivilInfoGeneral(builder) {
@@ -25,7 +26,7 @@ function RCivilInfoGeneral(builder) {
     (session, results) => {
         if (results === 'cancel')
         {
-            session.endDialog('Has cancelado la consulta del tramo en RSH 😭. ¡Vuelve Pronto!');            
+            session.endDialog('Has cancelado la consulta de información en Registro Civil 😭. ¡Vuelve Pronto!');            
             session.beginDialog('MenuAyuda','MenuFinal'); 
         }
 
@@ -49,7 +50,7 @@ function RCivilInfoGeneral(builder) {
 
         soap.createClient(process.env.SOAP_RCIVIL, function (err, client) {
             if (err) {
-                session.send('¡Lo lamento! 😭, hubo un error al consultar el servicio de registro civil 😅');
+                session.send('¡Lo lamento! 😭, hubo un error al consultar el servicio de información de registro civil 😅');
                 session.beginDialog('MenuAyuda','MenuFinal'); 
                 console.log(err);
             }
@@ -59,7 +60,7 @@ function RCivilInfoGeneral(builder) {
                     if (!result.ICE.RESULTADO ||
                         !result.ICE.minvuRutData ||
                         !result.ICE.minvuRutData.persona) {
-                        session.send('¡Lo lamento! 😭, no pude obtener datos del servicio de registro civil 😅')
+                        session.send('¡Lo lamento! 😭, no pude obtener los datos del servicio de información de registro civil 😅')
                         session.beginDialog('MenuAyuda','MenuFinal'); 
                     }
                     else {
@@ -80,19 +81,19 @@ function RCivilInfoGeneral(builder) {
                             }
                         else if (result.ICE.RESULTADO.ESTADO === 0)
                         {
-                            session.send('¡Pucha! no logré encontrar información en Registro Civil para el rut consultado' + rut.getNiceRut() + ' 😢');                            
+                            session.send('¡Pucha! no encontré información en Registro Civil para el rut consultado' + rut.getNiceRut() + ' 😢');                            
                             session.beginDialog('MenuAyuda','MenuFinal'); 
                         }
                         else
                         {
-                            session.send('Intente consultar la información del Registro Civil, pero no reconozco la información que me entrega 😟');
+                            session.send('Intente consultar la información del Registro Civil, pero no reconozco la información que me entrega el servicio 😟');
                             session.beginDialog('MenuAyuda','MenuFinal');  
                         }
 
                     }
                 }).catch((err) => {
                     console.log(err)
-                    session.send('Intenté consultar la información del Registro Civil, pero tuve un error al consultar el servicio 😭');
+                    session.send('Intenté consultar la información del Registro Civil, pero hubo un error al consultar el servicio 😭');
                     session.beginDialog('MenuAyuda','MenuFinal'); 
                 });
             }
@@ -118,14 +119,16 @@ function getCardsAttachments(session, rutCompleto, objRegistroCivil) {
 
 
 function createPersonaHeroCard(session, rutCompleto, objPersona) {
-
-
     var datosPersona = '';
+    var FechaNacimiento = helper.getFormateaFecha(objPersona.fechaNaci);
+    var FechaDefuncion = helper.getFormateaFecha(objPersona.fechaDefun);
+    var FechaVencDiscapacidad = helper.getFormateaFecha(objPersona.discapacidad.fechaVenc);
+
     datosPersona = `${datosPersona} 
         `+ `\n **NOMBRE:** ${objPersona.nombres} ${objPersona.apPaterno} ${objPersona.apMaterno}
-        `+ `\n **FECHA NACIMIENTO:** ${objPersona.fechaNaci}
+        `+ `\n **FECHA NACIMIENTO:** ${FechaNacimiento}
         `+ `\n **ESTADO CIVIL:** ${objPersona.estadoCivil}
-        `+ `\n **FECHA DE DEFUNCIÓN:** ${objPersona.fechaDefun}
+        `+ `\n **FECHA DE DEFUNCIÓN:** ${FechaDefuncion}
         `+ `\n **ESTADO CIVIL:** ${objPersona.estadoCivil}
         `+ `\n **NACIONALIDAD:** ${objPersona.nacionalidad}
         `+ `\n **GÉNERO:** ${objPersona.sexo}
@@ -135,7 +138,7 @@ function createPersonaHeroCard(session, rutCompleto, objPersona) {
         `+ `\n **MENTAL:** ${objPersona.discapacidad.mental}
         `+ `\n **SENSORIAL:** ${objPersona.discapacidad.sensorial}
         `+ `\n **FÍSICA:** ${objPersona.discapacidad.fisica}
-        `+ `\n **FECHA DE VENCIMIENTO:** ${objPersona.discapacidad.fechaVenc}`
+        `+ `\n **FECHA DE VENCIMIENTO:** ${FechaVencDiscapacidad}`
 
     //console.log(datosPersona);
     return new builder.HeroCard(session)
@@ -150,13 +153,18 @@ function createPersonaHeroCard(session, rutCompleto, objPersona) {
 function createMatrimonioHeroCard(session,rutCompleto, objMatrimonio) {
 
     var datosConyuge = '';
-    var rutConyuge = '';
+    var rutConyuge = '';    
+
     for (var i = 0; i < objMatrimonio.length; i++) {
+        var FechaNacimiento = helper.getFormateaFecha(objMatrimonio[i].conyuge[i].fechaNaci);
+        var FechaDefuncion = helper.getFormateaFecha(objMatrimonio[i].conyuge[i].fechaDefun);
+        var FechaVencDiscapacidad = helper.getFormateaFecha(objMatrimonio[i].conyuge[i].discapacidad.fechaVenc);
+
         datosConyuge = `${datosConyuge} 
         `+ `\n **NOMBRE:** ${objMatrimonio[i].conyuge[i].nombres} ${objMatrimonio[i].conyuge[i].apPaterno} ${objMatrimonio[i].conyuge[i].apMaterno}
-        `+ `\n **FECHA DE NACIMIENTO:** ${objMatrimonio[i].conyuge[i].fechaNaci}
+        `+ `\n **FECHA DE NACIMIENTO:** ${FechaNacimiento}
         `+ `\n **ESTADO CIVIL:** ${objMatrimonio[i].conyuge[i].estadoCivil}
-        `+ `\n **FECHA DE DEFUNCIÓN:** ${objMatrimonio[i].conyuge[i].fechaDefun}
+        `+ `\n **FECHA DE DEFUNCIÓN:** ${FechaDefuncion}
         `+ `\n **GÉNERO:** ${objMatrimonio[i].conyuge[i].sexo}
         `+ `\n **CAPITULACIÓN:** ${objMatrimonio[i].capitulacion}
         `+ `\n **FECHA INSCRIPCIÓN MATRIMONIO:** ${objMatrimonio[i].fechaInscripcionMatrimonio}
@@ -166,7 +174,7 @@ function createMatrimonioHeroCard(session,rutCompleto, objMatrimonio) {
         `+ `\n **MENTAL:** ${objMatrimonio[i].conyuge[i].discapacidad.mental}
         `+ `\n **SENSORIAL:** ${objMatrimonio[i].conyuge[i].discapacidad.sensorial}
         `+ `\n **FÍSICA:** ${objMatrimonio[i].conyuge[i].discapacidad.fisica}
-        `+ `\n **FECHA DE VENCIMIENTO:** ${objMatrimonio[i].conyuge[i].discapacidad.fechaVenc}`
+        `+ `\n **FECHA DE VENCIMIENTO:** ${FechaVencDiscapacidad}`
 
         rutConyuge = `${objMatrimonio[i].conyuge[i].rut}`;
     }
@@ -183,12 +191,15 @@ function createMatrimonioHeroCard(session,rutCompleto, objMatrimonio) {
 
 function createNucleoHeroCard(session, rutCompleto,objNucleo) {
     var datosNucleo = '';
+    var FechaNacimiento = helper.getFormateaFecha(objNucleo.fechaNaci);
+    var FechaDefuncion = helper.getFormateaFecha(objNucleo.fechaDefun);
+    var FechaVencDiscapacidad = helper.getFormateaFecha(objNucleo.discapacidad.fechaVenc);
 
     datosNucleo = `${datosNucleo} 
         `+ `\n **NOMBRE:** ${objNucleo.nombres} ${objNucleo.apPaterno} ${objNucleo.apMaterno}
-        `+ `\n **FECHA DE NACIMIENTO:** ${objNucleo.fechaNaci}
+        `+ `\n **FECHA DE NACIMIENTO:** ${FechaNacimiento}
         `+ `\n **ESTADO CIVIL:** ${objNucleo.estadoCivil}
-        `+ `\n **FECHA DE DEFUNCIÓN:** ${objNucleo.fechaDefun}
+        `+ `\n **FECHA DE DEFUNCIÓN:** ${FechaDefuncion}
         `+ `\n **GÉNERO:** ${objNucleo.sexo}     
         `+ `
 
@@ -196,7 +207,7 @@ function createNucleoHeroCard(session, rutCompleto,objNucleo) {
         `+ `\n **MENTAL:** ${objNucleo.discapacidad.mental}
         `+ `\n **SENSORIAL:** ${objNucleo.discapacidad.sensorial}
         `+ `\n **FÍSICA:** ${objNucleo.discapacidad.fisica}
-        `+ `\n **FECHA DE VENCIMIENTO:** ${objNucleo.discapacidad.fechaVenc}  
+        `+ `\n **FECHA DE VENCIMIENTO:** ${FechaVencDiscapacidad}  
         `+ `
 
 
